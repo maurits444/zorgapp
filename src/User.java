@@ -1,17 +1,23 @@
+import java.util.List;
 class User {
-    private String userName;
-    private int userId;
+    public String userName;
+    public int userId;
+    public List<String> roles; // Dit is de nieuwe lijst van rollen/namen voor elke User
 
-    public User(int userId, String userName) {
+    public User(int userId, String userName, List<String> roles) {
         this.userId = userId;
         this.userName = userName;
+        this.roles = roles;
     }
-
-   public String getUserName() {
+    public String getUserName() {
         return userName;
     }
 
     public int getUserId() {
         return userId;
+    }
+
+    public List<String> getRoles() {
+        return roles;
     }
 }

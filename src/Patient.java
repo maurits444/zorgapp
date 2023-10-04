@@ -4,7 +4,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
-class Patient {
+public class Patient {
     private static final int RETURN = 0;
     private static final int SURNAME = 1;
     private static final int FIRSTNAME = 2;
@@ -22,7 +22,7 @@ class Patient {
     private float weight;
     private float lungsCapacity;
 
-    Patient(int id, String surname, String firstName, LocalDate dateOfBirth, float height, float weight, float lungsCapacity) {
+    public Patient(int id, String surname, String firstName, LocalDate dateOfBirth, float height, float weight, float lungsCapacity) {
         this.id = id;
         setSurname(surname);
         setFirstName(firstName);
@@ -146,8 +146,8 @@ class Patient {
             System.out.println("[1] Achternaam (" + surname + ")");
             System.out.println("[2] Voornaam (" + firstName + ")");
             System.out.println("[3] Geboortedatum (" + dateOfBirth.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + ")");
-            System.out.println("[4] Gewicht (" + weight + "kg)");
-            System.out.println("[5] Lengte (" + height + "M)");
+            System.out.println("[4] Lengte (" + height + "M)");
+            System.out.println("[5] Gewicht (" + weight + "kg)");
             System.out.println("[6] Longinhoud (" + lungsCapacity + "L)");
 
             int propertyId = scanner.nextInt();
