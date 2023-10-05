@@ -3,6 +3,7 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+import java.util.List;
 
 public class Patient {
     private static final int RETURN = 0;
@@ -60,22 +61,6 @@ public class Patient {
 
     public int getAge() {
         return age;
-    }
-
-    public float getHeight(User requestingUser) {
-        if (!requestingUser.canAccessPatientLength()) {
-            System.out.println("Geen toegang tot de lengte van de patiënt");
-            return -1; // of een andere waarde om aan te duiden dat de lengte niet toegankelijk is
-        }
-        return height;
-    }
-
-    public float getWeight(User requestingUser) {
-        if (!requestingUser.canAccessPatientWeight()) {
-            System.out.println("Geen toegang tot het gewicht van de patiënt");
-            return -1; // of een andere waarde om aan te duiden dat het gewicht niet toegankelijk is
-        }
-        return weight;
     }
 
     public float getLungsCapacity() {
@@ -137,9 +122,16 @@ public class Patient {
         System.out.format("%-17s %s\n", "Achternaam:", surname);
         System.out.format("%-17s %s\n", "Voornaam:", firstName);
         System.out.format("%-17s %s\n", "Geboortedatum:", dateOfBirth.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
-        System.out.format("%-17s %.2f M\n", "Lengte:", height);
-        System.out.format("%-17s %.2f kg\n", "Gewicht:", weight);
-        System.out.format("%-17s %d Jaar\n", "Leeftijd:", age);
+        if (requestingUser.canAccessPatientLength()) {
+            System.out.format("%-17s %.2f M\n", "Lengte:", height);
+        } else {
+            System.out.println("Lengte: Niet toegankelijk voor tandarts");
+        }
+        if (requestingUser.canAccessPatientWeight()) {
+            System.out.format("%-17s %.2f kg\n", "Gewicht:", weight);
+        } else {
+            System.out.println("Gewicht: Niet toegankelijk voor tandarts");
+        }
         System.out.format("%-17s %.2f\n", "Body Mass Index:", getBMI());
         System.out.format("%-17s %s\n", "BMI Status:", getBMIStatus());
         System.out.format("%-17s %.2f L\n", "Longinhoud:", getLungsCapacity());
@@ -147,6 +139,23 @@ public class Patient {
         System.out.format("%-17s %.2f\n", "Body Mass Index:", getBMI());
         System.out.format("%-17s %s\n", "BMI Status:", getBMIStatus());
         System.out.format("%-17s %.2f L\n", "Longinhoud:", getLungsCapacity());
+    }
+    public float getHeight(User requestingUser) {
+        List<String> roles = requestingUser.getRoles();
+        if (roles != null && roles.contains("TANDARTS")) {
+            System.out.println("Niet toegankelijk voor tandarts.");
+            return -1;
+        }
+        return height;
+    }
+
+    public float getWeight(User requestingUser) {
+        List<String> roles = requestingUser.getRoles();
+        if (roles != null && roles.contains("TANDARTS")) {
+            System.out.println("Niet toegankelijk voor tandarts.");
+            return -1;
+        }
+        return weight;
     }
 
     void editData(User requestingUser) {
