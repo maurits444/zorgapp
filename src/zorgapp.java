@@ -8,10 +8,14 @@ public class zorgapp {
     public static void main(String[] args) {
         List<User> users = new ArrayList<>();
 
-        users.add(new User(1, "Huisarts", Arrays.asList("Bart Betermaker", "Henk Hulper", "Pieter Paracetemol")));
-        users.add(new User(2, "Fysiotherapeut", Arrays.asList("Vincent Voeten", "Bas Blessure", "Gerrie Gewricht")));
-        users.add(new User(3, "Apotheker", Arrays.asList("Mert Medicijnen", "Peter Pijnstiller", "Zara Zorgzaam")));
-        users.add(new User(4, "Tandarts", Arrays.asList("Tina Tandenbleker", "Karel Kiespijn", "Barry Beugel")));
+        users.add(new User(1, "Huisarts",
+                Arrays.asList("Bart Betermaker", "Henk Hulper", "Pieter Paracetemol")));
+        users.add(new User(2, "Fysiotherapeut",
+                Arrays.asList("Vincent Voeten", "Bas Blessure", "Gerrie Gewricht")));
+        users.add(new User(3, "Apotheker",
+                Arrays.asList("Mert Medicijnen", "Peter Pijnstiller", "Zara Zorgzaam")));
+        users.add(new TandartsUser(4, "Tandarts",
+                Arrays.asList("Tina Tandenbleker", "Karel Kiespijn", "Barry Beugel")));
 
         User selectedUser = selectUser(users);
         String selectedRole = selectRole(selectedUser);

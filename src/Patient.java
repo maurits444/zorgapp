@@ -58,19 +58,27 @@ public class Patient {
         return dateOfBirth;
     }
 
-    int getAge() {
+    public int getAge() {
         return age;
     }
 
-    float getHeight() {
+    public float getHeight(User requestingUser) {
+        if (!requestingUser.canAccessPatientLength()) {
+            System.out.println("Geen toegang tot de lengte van de patiënt");
+            return -1; // of een andere waarde om aan te duiden dat de lengte niet toegankelijk is
+        }
         return height;
     }
 
-    float getWeight() {
+    public float getWeight(User requestingUser) {
+        if (!requestingUser.canAccessPatientWeight()) {
+            System.out.println("Geen toegang tot het gewicht van de patiënt");
+            return -1; // of een andere waarde om aan te duiden dat het gewicht niet toegankelijk is
+        }
         return weight;
     }
 
-    float getLungsCapacity() {
+    public float getLungsCapacity() {
         return lungsCapacity;
     }
 
@@ -124,7 +132,7 @@ public class Patient {
         return "Obese";
     }
 
-    void viewData() {
+    void viewData(User requestingUser) {
         System.out.format("===== Patient id=%d ==============================\n", id);
         System.out.format("%-17s %s\n", "Achternaam:", surname);
         System.out.format("%-17s %s\n", "Voornaam:", firstName);
@@ -135,9 +143,13 @@ public class Patient {
         System.out.format("%-17s %.2f\n", "Body Mass Index:", getBMI());
         System.out.format("%-17s %s\n", "BMI Status:", getBMIStatus());
         System.out.format("%-17s %.2f L\n", "Longinhoud:", getLungsCapacity());
+        System.out.format("%-17s %d Jaar\n", "Leeftijd:", age);
+        System.out.format("%-17s %.2f\n", "Body Mass Index:", getBMI());
+        System.out.format("%-17s %s\n", "BMI Status:", getBMIStatus());
+        System.out.format("%-17s %.2f L\n", "Longinhoud:", getLungsCapacity());
     }
 
-    void editData() {
+    void editData(User requestingUser) {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -211,3 +223,7 @@ public class Patient {
                     scanner.close();
             } } } }
 
+//encapulation
+// polyformisme
+//imperatief programmeren
+// false true

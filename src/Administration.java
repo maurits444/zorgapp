@@ -10,26 +10,30 @@ class Administration {
     private static final int EDIT = 2;
     private static final int SWITCH = 3;
     private Patient currentPatient;
-    private User currentUser;
+    private User requestingUser;
     private List<Patient> patients = new ArrayList<>();
 
     /**
      * Constructor
      */
-    public Administration(User user) {
-        currentUser = user;
-
+    public Administration(User requestingUser) {
+        this.requestingUser = requestingUser;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
-        patients.add(new Patient(1, "Huisman", "Michiel", LocalDate.parse("30-01-2001", formatter), 1.7f, 88.0f, 5.0f));
-        patients.add(new Patient(2, "Bos", "Henk", LocalDate.parse("15-04-1999", formatter), 1.9f, 90.0f, 6.0f));
-        patients.add(new Patient(3, "Beek", "Jan", LocalDate.parse("16-06-1990", formatter), 1.6f, 65.0f, 7.0f));
-        patients.add(new Patient(4, "Boersma", "Johan", LocalDate.parse("21-02-1995", formatter), 1.7f, 75.0f, 4.5f));
-        patients.add(new Patient(5, "Tukker", "Tom", LocalDate.parse("25-08-2003", formatter), 1.8f, 85.0f, 4.8f));
+        patients.add(new Patient(1, "Huisman", "Michiel",
+                LocalDate.parse("30-01-2001", formatter), 1.7f, 88.0f, 5.0f));
+        patients.add(new Patient(2, "Bos", "Henk",
+                LocalDate.parse("15-04-1999", formatter), 1.9f, 90.0f, 6.0f));
+        patients.add(new Patient(3, "Beek", "Jan",
+                LocalDate.parse("16-06-1990", formatter), 1.6f, 65.0f, 7.0f));
+        patients.add(new Patient(4, "Boersma", "Johan",
+                LocalDate.parse("21-02-1995", formatter), 1.7f, 75.0f, 4.5f));
+        patients.add(new Patient(5, "Tukker", "Tom",
+                LocalDate.parse("25-08-2003", formatter), 1.8f, 85.0f, 4.8f));
 
 
         currentPatient = selectCurrentPatient();
-        System.out.format("Huidige patient: [%d] %s\n", user.getUserId(), currentUser.getUserName());
+        System.out.format("Huidige patient: [%d] %s\n", requestingUser.getUserId(), requestingUser.getUserName());
     }
     private Patient selectCurrentPatient() {
         Scanner scanner = new Scanner(System.in);
@@ -70,10 +74,10 @@ class Administration {
                     nextCycle = false;
                     break;
                 case VIEW:
-                    currentPatient.viewData();
+                    currentPatient.viewData(requestingUser);
                     break;
                 case EDIT:
-                    currentPatient.editData();
+                    currentPatient.editData(requestingUser);
                     break;
                 case SWITCH:
                     currentPatient = selectCurrentPatient();

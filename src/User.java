@@ -20,4 +20,12 @@ class User {
     public List<String> getRoles() {
         return roles;
     }
+
+    public boolean canAccessPatientLength() {
+        return true;
+    }
+
+    public boolean canAccessPatientWeight() {
+        return true;
+    }
 }
