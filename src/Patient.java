@@ -2,8 +2,11 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+//... any other imports
+
 
 public class Patient {
     private static final int RETURN = 0;
@@ -22,6 +25,7 @@ public class Patient {
     private float height;
     private float weight;
     private float lungsCapacity;
+    private List<Medicijn> medicijnen;
 
     public Patient(int id, String surname, String firstName, LocalDate dateOfBirth, float height, float weight, float lungsCapacity) {
         this.id = id;
@@ -31,7 +35,9 @@ public class Patient {
         setHeight(height);
         setWeight(weight);
         setLungsCapacity(lungsCapacity);
+        this.medicijnen = new ArrayList<>();
     }
+
 
     private int calcAge(LocalDate dob) {
         LocalDate today = LocalDate.now();
@@ -74,6 +80,11 @@ public class Patient {
         return lungsCapacity;
     }
 
+    public List<Medicijn> getMedicijnen() {
+        return medicijnen;
+    }
+
+
     // Setters with validation
     void setSurname(String surname) {
         if (surname != null && !surname.trim().isEmpty()) {
@@ -115,6 +126,11 @@ public class Patient {
             this.lungsCapacity = lungsCapacity;
         }
     }
+
+    void addMedicijn(Medicijn medicine) {
+        this.medicijnen.add(medicine);
+    }
+
 
     String getBMIStatus() {
         float bmi = getBMI();
