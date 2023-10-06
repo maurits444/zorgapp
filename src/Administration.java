@@ -9,6 +9,8 @@ class Administration {
     private static final int VIEW = 1;
     private static final int EDIT = 2;
     private static final int SWITCH = 3;
+    private static final int VIEW_MEDICINES = 4;
+
     private Patient currentPatient;
     private User requestingUser;
     private List<Patient> patients = new ArrayList<>();
@@ -66,6 +68,7 @@ class Administration {
             System.out.format("%d:  Bekijk de patient gegevens\n", VIEW);
             System.out.format("%d:  Edit de patient gegevens\n", EDIT);
             System.out.format("%d:  Terug\n", SWITCH);
+            System.out.format("%d:  Bekijk de medicijnen van de patiënt\n", VIEW_MEDICINES);
 
             System.out.print("Kies een optie: ");
             int choice = scanner.nextInt();
@@ -81,6 +84,9 @@ class Administration {
                     break;
                 case SWITCH:
                     currentPatient = selectCurrentPatient();
+                    break;
+                case VIEW_MEDICINES:
+                    currentPatient.printMedicijnen();
                     break;
                 default:
                     System.out.println("Error, probeer opnieuw. Kies een cijfer uit de lijst.");

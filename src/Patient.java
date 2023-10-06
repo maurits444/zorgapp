@@ -35,7 +35,7 @@ public class Patient {
         setHeight(height);
         setWeight(weight);
         setLungsCapacity(lungsCapacity);
-        this.medicijnen = new ArrayList<>();
+        this.medicijnen = createDefaultMedicijnen();
     }
 
 
@@ -80,8 +80,10 @@ public class Patient {
         return lungsCapacity;
     }
 
-    public List<Medicijn> getMedicijnen() {
-        return medicijnen;
+    private List<Medicijn> createDefaultMedicijnen() {
+        List<Medicijn> defaultMedicijnen = new ArrayList<>();
+        defaultMedicijnen.add(new Medicijn("Paracetamol", "500mg", "4 keer per dag"));
+        return defaultMedicijnen;
     }
 
 
@@ -130,6 +132,14 @@ public class Patient {
     void addMedicijn(Medicijn medicine) {
         this.medicijnen.add(medicine);
     }
+
+    public void printMedicijnen() {
+        System.out.println("Lijst van medicijnen:");
+        for (Medicijn medicijn : this.medicijnen) {
+            System.out.println("Medicijn: " + medicijn.getName() + ", Dosering: " + medicijn.getDose() + ", Frequentie: " + medicijn.getFrequency());
+        }
+    }
+
 
 
     String getBMIStatus() {
