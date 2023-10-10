@@ -82,10 +82,14 @@ public class Patient {
 
     private List<Medicijn> createDefaultMedicijnen() {
         List<Medicijn> defaultMedicijnen = new ArrayList<>();
-        defaultMedicijnen.add(new Medicijn("Paracetamol", "500mg", "4 keer per dag"));
+
+        defaultMedicijnen.add(new Medicijn("Ibuprofen", "200mg", "3 keer per dag"));
+        defaultMedicijnen.add(new Medicijn("Omeprazol", "20mg", "1 keer per dag"));
+        defaultMedicijnen.add(new Medicijn("Loratadine", "10mg", "2 keer per dag"));
+        defaultMedicijnen.add(new Medicijn("Amoxicilline", "500mg", "3 keer per dag"));
+
         return defaultMedicijnen;
     }
-
 
     // Setters with validation
     void setSurname(String surname) {
