@@ -10,6 +10,7 @@ class Administration {
     private static final int EDIT = 2;
     private static final int SWITCH = 3;
     private static final int VIEW_MEDICINES = 4;
+    private static final int ADD_MEDICINE = 5;
 
     private Patient currentPatient;
     private User requestingUser;
@@ -69,6 +70,7 @@ class Administration {
             System.out.format("%d:  Edit de patient gegevens\n", EDIT);
             System.out.format("%d:  Terug\n", SWITCH);
             System.out.format("%d:  Bekijk de medicijnen van de patiënt\n", VIEW_MEDICINES);
+            System.out.format("%d:  Voeg een medicijn toe\n", ADD_MEDICINE);
 
             System.out.print("Kies een optie: ");
             int choice = scanner.nextInt();
@@ -87,6 +89,9 @@ class Administration {
                     break;
                 case VIEW_MEDICINES:
                     currentPatient.printMedicijnen();
+                    break;
+                case ADD_MEDICINE:
+                    currentPatient.voegNieuwMedicijnToe();
                     break;
                 default:
                     System.out.println("Error, probeer opnieuw. Kies een cijfer uit de lijst.");

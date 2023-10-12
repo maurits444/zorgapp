@@ -133,15 +133,32 @@ public class Patient {
         }
     }
 
-    void addMedicijn(Medicijn medicine) {
-        this.medicijnen.add(medicine);
+    void addNewMedicijn(String medicijnnaam, String dosering, String frequentie) {
+        Medicijn medicijn = new Medicijn(medicijnnaam, dosering, frequentie);
+        this.medicijnen.add(medicijn);
     }
+
 
     public void printMedicijnen() {
         System.out.println("Lijst van medicijnen:");
         for (Medicijn medicijn : this.medicijnen) {
             System.out.println("Medicijn: " + medicijn.getName() + ", Dosering: " + medicijn.getDose() + ", Frequentie: " + medicijn.getFrequency());
         }
+    }
+    public void voegNieuwMedicijnToe() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Voer de naam van het medicijn in:");
+        String medicijnnaam = scanner.nextLine();
+
+        System.out.println("Voer de dosering in:");
+        String dosering = scanner.nextLine();
+
+        System.out.println("Voer de frequentie in:");
+        String frequentie = scanner.nextLine();
+
+        addNewMedicijn(medicijnnaam, dosering, frequentie);
+        System.out.println("Nieuw medicijn toegevoegd!");
     }
 
 
