@@ -11,10 +11,13 @@ class Administration {
     private static final int SWITCH = 3;
     private static final int VIEW_MEDICINES = 4;
     private static final int ADD_MEDICINE = 5;
+    private static final int EDIT_MEDICINE = 6;
+
 
     private Patient currentPatient;
     private User requestingUser;
     private List<Patient> patients = new ArrayList<>();
+
 
     /**
      * Constructor
@@ -38,6 +41,7 @@ class Administration {
         currentPatient = selectCurrentPatient();
         System.out.format("Huidige patient: [%d] %s\n", requestingUser.getUserId(), requestingUser.getUserName());
     }
+
     private Patient selectCurrentPatient() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -93,10 +97,42 @@ class Administration {
                 case ADD_MEDICINE:
                     currentPatient.voegNieuwMedicijnToe();
                     break;
+                case EDIT_MEDICINE:
+                    editMedicijnForPatient(currentPatient);
+                    break;
                 default:
                     System.out.println("Error, probeer opnieuw. Kies een cijfer uit de lijst.");
                     break;
             }
+        }
+    }
+
+    private void editMedicijnForPatient(Patient patient) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Select a medication to edit:");
+        for (int i = 0; i < patient.getMedicijnen().size(); i++) {
+            System.out.println((i + 1) + ". " + patient.getMedicijnen().get(i).getName());
+        }
+
+        int choice = scanner.nextInt();
+        if (choice > 0 && choice <= patient.getMedicijnen().size()) {
+            int medicationIndex = choice - 1;
+            System.out.println("Enter new medication details:");
+
+            System.out.print("Medicijnnaam: ");
+            String medicijnnaam = scanner.next();
+
+            System.out.print("Dosering: ");
+            String dosering = scanner.next();
+
+            System.out.print("Frequentie: ");
+            String frequentie = scanner.next();
+
+            patient.editMedicijn(medicationIndex, medicijnnaam, dosering, frequentie);
+            System.out.println("Medication updated successfully.");
+        } else {
+            System.out.println("Invalid medication selection. Please try again.");
         }
     }
 }

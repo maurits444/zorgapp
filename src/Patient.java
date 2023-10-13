@@ -112,14 +112,18 @@ public class Patient {
     }
 
     void setHeight(float height) {
-        if (height > 0) {
+        if (height > 0 && height <= 250) {
             this.height = height;
+        } else {
+            System.out.println("Error: Lengte moet tussen de 0 en 250 vallen.");
         }
     }
 
     void setWeight(float weight) {
-        if (weight > 0) {
+        if (weight > 0 && weight <=250) {
             this.weight = weight;
+        } else {
+            System.out.println("Error: Gewicht moet tussen de 0 en 250 vallen.");
         }
     }
 
@@ -131,6 +135,10 @@ public class Patient {
         if (lungsCapacity > 0) {
             this.lungsCapacity = lungsCapacity;
         }
+    }
+
+    public List<Medicijn> getMedicijnen() {
+        return medicijnen;
     }
 
     void addNewMedicijn(String medicijnnaam, String dosering, String frequentie) {
@@ -160,6 +168,17 @@ public class Patient {
         addNewMedicijn(medicijnnaam, dosering, frequentie);
         System.out.println("Nieuw medicijn toegevoegd!");
     }
+    public void editMedicijn(int index, String medicijnnaam, String dosering, String frequentie) {
+        if (index >= 0 && index < medicijnen.size()) {
+            Medicijn medicijn = medicijnen.get(index);
+            medicijn.setName(medicijnnaam);
+            medicijn.setDose(dosering);
+            medicijn.setFrequency(frequentie);
+        } else {
+            System.out.println("Invalid medication index. Please provide a valid index.");
+        }
+    }
+
 
 
 
@@ -285,8 +304,3 @@ public class Patient {
                     System.out.println("Incorrect cijfer. Kies een cijfer uit de lijst.");
                     scanner.close();
             } } } }
-
-//encapulation
-// polyformisme
-//imperatief programmeren
-// false true
