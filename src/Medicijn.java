@@ -34,4 +34,6 @@ public class Medicijn {
     public void setFrequency(String frequency) {
         this.frequency = frequency;
     }
+
+
 }

@@ -8,15 +8,15 @@ class Administration {
     private static final int STOP = 0;
     private static final int VIEW = 1;
     private static final int EDIT = 2;
-    private static final int SWITCH = 3;
-    private static final int VIEW_MEDICINES = 4;
-    private static final int ADD_MEDICINE = 5;
-    private static final int EDIT_MEDICINE = 6;
+    private static final int VIEW_MEDICINES = 3;
+    private static final int ADD_MEDICINE = 4;
+    private static final int EDIT_MEDICINE = 5;
+    private static final int SWITCH = 6;
 
 
-    private Patient currentPatient;
-    private User requestingUser;
-    private List<Patient> patients = new ArrayList<>();
+    public Patient currentPatient;
+    public User requestingUser;
+    public List<Patient> patients = new ArrayList<>();
 
 
     /**
@@ -70,11 +70,12 @@ class Administration {
 
             // Print menu on screen
             System.out.format("%d:  STOP\n", STOP);
-            System.out.format("%d:  Bekijk de patient gegevens\n", VIEW);
-            System.out.format("%d:  Edit de patient gegevens\n", EDIT);
-            System.out.format("%d:  Terug\n", SWITCH);
-            System.out.format("%d:  Bekijk de medicijnen van de patiënt\n", VIEW_MEDICINES);
+            System.out.format("%d:  Patient gegevens\n", VIEW);
+            System.out.format("%d:  Bewerk de patient gegevens\n", EDIT);
+            System.out.format("%d:  Medicijnenlijst\n", VIEW_MEDICINES);
             System.out.format("%d:  Voeg een medicijn toe\n", ADD_MEDICINE);
+            System.out.format("%d:  Bewerk de medicijnen\n", EDIT_MEDICINE);
+            System.out.format("%d:  Terug\n", SWITCH);
 
             System.out.print("Kies een optie: ");
             int choice = scanner.nextInt();
@@ -98,41 +99,12 @@ class Administration {
                     currentPatient.voegNieuwMedicijnToe();
                     break;
                 case EDIT_MEDICINE:
-                    editMedicijnForPatient(currentPatient);
+                    currentPatient.editMedicijnForPatient(requestingUser);
                     break;
                 default:
                     System.out.println("Error, probeer opnieuw. Kies een cijfer uit de lijst.");
                     break;
             }
-        }
-    }
-
-    private void editMedicijnForPatient(Patient patient) {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Select a medication to edit:");
-        for (int i = 0; i < patient.getMedicijnen().size(); i++) {
-            System.out.println((i + 1) + ". " + patient.getMedicijnen().get(i).getName());
-        }
-
-        int choice = scanner.nextInt();
-        if (choice > 0 && choice <= patient.getMedicijnen().size()) {
-            int medicationIndex = choice - 1;
-            System.out.println("Enter new medication details:");
-
-            System.out.print("Medicijnnaam: ");
-            String medicijnnaam = scanner.next();
-
-            System.out.print("Dosering: ");
-            String dosering = scanner.next();
-
-            System.out.print("Frequentie: ");
-            String frequentie = scanner.next();
-
-            patient.editMedicijn(medicationIndex, medicijnnaam, dosering, frequentie);
-            System.out.println("Medication updated successfully.");
-        } else {
-            System.out.println("Invalid medication selection. Please try again.");
         }
     }
 }

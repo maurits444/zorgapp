@@ -10,7 +10,7 @@ public class zorgapp {
 
         users.add(new User(1, "Huisarts",
                 Arrays.asList("Bart Betermaker", "Henk Hulper", "Pieter Paracetemol")));
-        users.add(new User(2, "Fysiotherapeut",
+        users.add(new FysioUser(2, "Fysiotherapeut",
                 Arrays.asList("Vincent Voeten", "Bas Blessure", "Gerrie Gewricht")));
         users.add(new User(3, "Apotheker",
                 Arrays.asList("Mert Medicijnen", "Peter Pijnstiller", "Zara Zorgzaam")));

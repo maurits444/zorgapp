@@ -28,4 +28,7 @@ class User {
     public boolean canAccessPatientWeight() {
         return true;
     }
+    public boolean canEditMedicijnen() {
+        return true;
+    }
 }

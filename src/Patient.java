@@ -83,10 +83,10 @@ public class Patient {
     private List<Medicijn> createDefaultMedicijnen() {
         List<Medicijn> defaultMedicijnen = new ArrayList<>();
 
-        defaultMedicijnen.add(new Medicijn("Ibuprofen", "200mg", "3 keer per dag"));
-        defaultMedicijnen.add(new Medicijn("Omeprazol", "20mg", "1 keer per dag"));
-        defaultMedicijnen.add(new Medicijn("Loratadine", "10mg", "2 keer per dag"));
-        defaultMedicijnen.add(new Medicijn("Amoxicilline", "500mg", "3 keer per dag"));
+        defaultMedicijnen.add(new Medicijn("Ibuprofen", "200mg", "3 keer per dag \nVoorraad: 14 stuks"));
+        defaultMedicijnen.add(new Medicijn("Omeprazol", "20mg", "1 keer per dag \nVoorraad: 29 stuks"));
+        defaultMedicijnen.add(new Medicijn("Loratadine", "10mg", "2 keer per dag \nVoorraad: 43 stuks"));
+        defaultMedicijnen.add(new Medicijn("Amoxicilline", "500mg", "3 keer per dag \nVoorraad: 56 stuks"));
 
         return defaultMedicijnen;
     }
@@ -150,9 +150,9 @@ public class Patient {
     public void printMedicijnen() {
         System.out.println("Lijst van medicijnen:");
         for (Medicijn medicijn : this.medicijnen) {
-            System.out.println("Medicijn: " + medicijn.getName() + ", Dosering: " + medicijn.getDose() + ", Frequentie: " + medicijn.getFrequency());
-        }
-    }
+            System.out.println("Medicijn: " + medicijn.getName() + " \nDosering: " + medicijn.getDose() + " \nFrequentie: " + medicijn.getFrequency());
+        System.out.println(); // Voeg een extra witregel toe aan het einde, voor nette opmaak
+    } }
     public void voegNieuwMedicijnToe() {
         Scanner scanner = new Scanner(System.in);
 
@@ -168,19 +168,6 @@ public class Patient {
         addNewMedicijn(medicijnnaam, dosering, frequentie);
         System.out.println("Nieuw medicijn toegevoegd!");
     }
-    public void editMedicijn(int index, String medicijnnaam, String dosering, String frequentie) {
-        if (index >= 0 && index < medicijnen.size()) {
-            Medicijn medicijn = medicijnen.get(index);
-            medicijn.setName(medicijnnaam);
-            medicijn.setDose(dosering);
-            medicijn.setFrequency(frequentie);
-        } else {
-            System.out.println("Invalid medication index. Please provide a valid index.");
-        }
-    }
-
-
-
 
     String getBMIStatus() {
         float bmi = getBMI();
@@ -303,4 +290,52 @@ public class Patient {
                 default:
                     System.out.println("Incorrect cijfer. Kies een cijfer uit de lijst.");
                     scanner.close();
-            } } } }
+            } } }
+
+    public void editMedicijn(int index, String medicijnnaam, String dosering, String frequentie, User requestingUser) {
+        if (requestingUser.canEditMedicijnen()) {
+            if (index >= 0 && index < medicijnen.size()) {
+                Medicijn medicijn = medicijnen.get(index);
+                medicijn.setName(medicijnnaam);
+                medicijn.setDose(dosering);
+                medicijn.setFrequency(frequentie);
+                System.out.println("Medicijn succesvol bewerkt.");
+            } else {
+                System.out.println("Ongeldige medicijnindex. Geef een geldige index op.");
+            }
+        } else {
+            System.out.println("De gebruiker heeft geen toestemming om medicijnen te bewerken.");
+        }
+    }
+
+    public void editMedicijnForPatient(User requestingUser) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Selecteer een medicijn:");
+        for (int i = 0; i < medicijnen.size(); i++) {
+            System.out.println((i + 1) + ". " + medicijnen.get(i).getName());
+        }
+
+        int choice = scanner.nextInt();
+        if (choice > 0 && choice <= medicijnen.size()) {
+            int medicationIndex = choice - 1;
+            System.out.println("Voer de nieuwe gegevens in:");
+
+            System.out.print("Medicijnnaam: ");
+            String medicijnnaam = scanner.next();
+
+            System.out.print("Dosering: ");
+            String dosering = scanner.next();
+
+            System.out.print("Frequentie: ");
+            String frequentie = scanner.next();
+
+            editMedicijn(medicationIndex, medicijnnaam, dosering, frequentie, requestingUser);
+        } else {
+            System.out.println("Error, verkeerde invoer. Probeer opnieuw.");
+        }
+    }
+
+    public void editMedicijnForPatient() {
+    }
+}
