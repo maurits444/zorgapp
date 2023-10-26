@@ -5,13 +5,13 @@ import java.util.Scanner;
 import java.time.format.DateTimeFormatter;
 
 class Administration {
-    private static final int STOP = 0;
+    private static final int SWITCH = 0;
     private static final int VIEW = 1;
     private static final int EDIT = 2;
     private static final int VIEW_MEDICINES = 3;
     private static final int ADD_MEDICINE = 4;
     private static final int EDIT_MEDICINE = 5;
-    private static final int SWITCH = 6;
+    private static final int STOP = 6;
 
 
     public Patient currentPatient;
@@ -69,7 +69,7 @@ class Administration {
 
 
             // Print menu on screen
-            System.out.format("%d:  STOP\n", STOP);
+            System.out.format("%d:  Terug\n", SWITCH);
             System.out.format("%d:  Patient gegevens\n", VIEW);
             System.out.format("%d:  Bewerk de patient gegevens\n", EDIT);
             System.out.format("%d:  Medicijnenlijst\n", VIEW_MEDICINES);
@@ -83,8 +83,6 @@ class Administration {
            } else {
                System.out.print("");
            }
-            System.out.format("%d:  Terug\n", SWITCH);
-
             System.out.print("Kies een optie: ");
             int choice = scanner.nextInt();
             switch (choice) {

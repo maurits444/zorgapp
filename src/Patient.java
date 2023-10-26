@@ -83,10 +83,10 @@ public class Patient {
     private List<Medicijn> createDefaultMedicijnen() {
         List<Medicijn> defaultMedicijnen = new ArrayList<>();
 
-        defaultMedicijnen.add(new Medicijn("Ibuprofen", "200mg", "3 keer per dag \nVoorraad: 14 stuks"));
-        defaultMedicijnen.add(new Medicijn("Omeprazol", "20mg", "1 keer per dag \nVoorraad: 29 stuks"));
-        defaultMedicijnen.add(new Medicijn("Loratadine", "10mg", "2 keer per dag \nVoorraad: 43 stuks"));
-        defaultMedicijnen.add(new Medicijn("Amoxicilline", "500mg", "3 keer per dag \nVoorraad: 56 stuks"));
+        defaultMedicijnen.add(new Medicijn("Ibuprofen", "200mg", "3 keer per dag \n"));
+        defaultMedicijnen.add(new Medicijn("Omeprazol", "20mg", "1 keer per dag \n"));
+        defaultMedicijnen.add(new Medicijn("Loratadine", "10mg", "2 keer per dag \n"));
+        defaultMedicijnen.add(new Medicijn("Amoxicilline", "500mg", "3 keer per dag \n"));
 
         return defaultMedicijnen;
     }
