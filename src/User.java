@@ -20,7 +20,9 @@ class User {
     public List<String> getRoles() {
         return roles;
     }
-
+    public ConsultInfo getConsultInfo(String serviceName) {
+        return null;
+    }
     public boolean canAccessPatientLength() {
         return true;
     }

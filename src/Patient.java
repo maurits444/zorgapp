@@ -68,6 +68,7 @@ public class Patient {
     public int getAge() {
         return age;
     }
+
     public float getHeight() {
         return height;
     }
@@ -120,7 +121,7 @@ public class Patient {
     }
 
     void setWeight(float weight) {
-        if (weight > 0 && weight <=250) {
+        if (weight > 0 && weight <= 250) {
             this.weight = weight;
         } else {
             System.out.println("Error: Gewicht moet tussen de 0 en 250 vallen.");
@@ -151,8 +152,10 @@ public class Patient {
         System.out.println("Lijst van medicijnen:");
         for (Medicijn medicijn : this.medicijnen) {
             System.out.println("Medicijn: " + medicijn.getName() + " \nDosering: " + medicijn.getDose() + " \nFrequentie: " + medicijn.getFrequency());
-        System.out.println(); // Voeg een extra witregel toe aan het einde, voor nette opmaak
-    } }
+            System.out.println(); // Voeg een extra witregel toe aan het einde, voor nette opmaak
+        }
+    }
+
     public void voegNieuwMedicijnToe() {
         Scanner scanner = new Scanner(System.in);
 
@@ -200,6 +203,7 @@ public class Patient {
         System.out.format("%-17s %s\n", "BMI Status:", getBMIStatus());
         System.out.format("%-17s %.2f L\n", "Longinhoud:", getLungsCapacity());
     }
+
     public float getHeight(User requestingUser) {
         List<String> roles = requestingUser.getRoles();
         if (roles != null && roles.contains("TANDARTS")) {
@@ -290,7 +294,9 @@ public class Patient {
                 default:
                     System.out.println("Incorrect cijfer. Kies een cijfer uit de lijst.");
                     scanner.close();
-            } } }
+            }
+        }
+    }
 
     public void editMedicijn(int index, String medicijnnaam, String dosering, String frequentie, User requestingUser) {
         if (requestingUser.canEditMedicijnen()) {
@@ -338,4 +344,5 @@ public class Patient {
 
     public void editMedicijnForPatient() {
     }
+
 }

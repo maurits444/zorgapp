@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
+
 
 class Administration {
     private static final int SWITCH = 0;
@@ -12,6 +14,8 @@ class Administration {
     private static final int ADD_MEDICINE = 4;
     private static final int EDIT_MEDICINE = 5;
     private static final int STOP = 6;
+    private static final int VIEW_CONSULTANT_RATES = 7; // Voeg dit toe aan de andere constants
+
 
 
     public Patient currentPatient;
@@ -58,59 +62,78 @@ class Administration {
             }
         }
     }
+    public void viewConsultantRates() {
+        if (requestingUser != null) {
+            if (requestingUser instanceof TandartsUser) {
+                TandartsUser TandartsUser = (TandartsUser) requestingUser;
 
-    void menu() {
-        Scanner scanner = new Scanner(System.in);  // User input via this scanner.
+                System.out.println("Tandarts Consultprijzen:");
+                System.out.println("Routine controle - €" + TandartsUser.getConsultRate("Routine controle"));
+                System.out.println("Extractie - €" + TandartsUser.getConsultRate("Extractie"));
+                System.out.println("Fluoridebehandeling - €" + TandartsUser.getConsultRate("Fluoridebehandeling"));
+                System.out.println("Wortelkanaalbehandeling - €" + TandartsUser.getConsultRate("Wortelkanaalbehandeling"));
+                System.out.println("Implantaat - €" + TandartsUser.getConsultRate("Implantaat"));
+            } else {
+                System.out.print("");
+            } }
+    }
 
-        boolean nextCycle = true;
-        while (nextCycle) {
-            System.out.format("%s\n", "=".repeat(80));
-            System.out.format("Huidige patient: %s\n", currentPatient.fullName());
+        public void menu() {
+            Scanner scanner = new Scanner(System.in);  // User input via this scanner.
 
+            boolean nextCycle = true;
+            while (nextCycle) {
+                System.out.format("%s\n", "=".repeat(80));
+                System.out.format("Huidige patient: %s\n", currentPatient.fullName());
 
-            // Print menu on screen
-            System.out.format("%d:  Terug\n", SWITCH);
-            System.out.format("%d:  Patient gegevens\n", VIEW);
-            System.out.format("%d:  Bewerk de patient gegevens\n", EDIT);
-            System.out.format("%d:  Medicijnenlijst\n", VIEW_MEDICINES);
-           if (requestingUser.canEditMedicijnen()) {
-               System.out.format("%d:  Voeg een medicijn toe\n", ADD_MEDICINE);
-           } else {
-               System.out.print("");
-           }
-           if (requestingUser.canEditMedicijnen()) {
-               System.out.format("%d:  Bewerk de medicijnen\n", EDIT_MEDICINE);
-           } else {
-               System.out.print("");
-           }
-            System.out.print("Kies een optie: ");
-            int choice = scanner.nextInt();
-            switch (choice) {
-                case STOP: // stop loop
-                    nextCycle = false;
-                    break;
-                case VIEW:
-                    currentPatient.viewData(requestingUser);
-                    break;
-                case EDIT:
-                    currentPatient.editData(requestingUser);
-                    break;
-                case SWITCH:
-                    currentPatient = selectCurrentPatient();
-                    break;
-                case VIEW_MEDICINES:
-                    currentPatient.printMedicijnen();
-                    break;
-                case ADD_MEDICINE:
-                    currentPatient.voegNieuwMedicijnToe();
-                    break;
-                case EDIT_MEDICINE:
-                    currentPatient.editMedicijnForPatient(requestingUser);
-                    break;
-                default:
-                    System.out.println("Error, probeer opnieuw. Kies een cijfer uit de lijst.");
-                    break;
+                // Print menu on screen
+                System.out.format("%d:  Terug\n", SWITCH);
+                System.out.format("%d:  Patient gegevens\n", VIEW);
+                System.out.format("%d:  Bewerk de patient gegevens\n", EDIT);
+                System.out.format("%d:  Medicijnenlijst\n", VIEW_MEDICINES);
+                if (requestingUser.canEditMedicijnen()) {
+                    System.out.format("%d:  Voeg een medicijn toe\n", ADD_MEDICINE);
+                } else {
+                    System.out.print("");
+                }
+                if (requestingUser.canEditMedicijnen()) {
+                    System.out.format("%d:  Bewerk de medicijnen\n", EDIT_MEDICINE);
+                } else {
+                    System.out.print("");
+                }
+                System.out.format("%d:  Bekijk consulttarieven\n", VIEW_CONSULTANT_RATES); // Dit is toegevoegd
+
+                System.out.print("Kies een optie: ");
+                int choice = scanner.nextInt();
+                switch (choice) {
+                    case STOP: // stop loop
+                        nextCycle = false;
+                        break;
+                    case VIEW:
+                        currentPatient.viewData(requestingUser);
+                        break;
+                    case EDIT:
+                        currentPatient.editData(requestingUser);
+                        break;
+                    case SWITCH:
+                        currentPatient = selectCurrentPatient();
+                        break;
+                    case VIEW_MEDICINES:
+                        currentPatient.printMedicijnen();
+                        break;
+                    case ADD_MEDICINE:
+                        currentPatient.voegNieuwMedicijnToe();
+                        break;
+                    case EDIT_MEDICINE:
+                        currentPatient.editMedicijnForPatient(requestingUser);
+                        break;
+                    case VIEW_CONSULTANT_RATES:
+                        viewConsultantRates(); // Dit is toegevoegd
+                        break;
+                    default:
+                        System.out.println("Error, probeer opnieuw. Kies een cijfer uit de lijst.");
+                        break;
+                }
             }
         }
     }
-}
