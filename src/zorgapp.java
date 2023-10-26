@@ -8,11 +8,11 @@ public class zorgapp {
     public static void main(String[] args) {
         List<User> users = new ArrayList<>();
 
-        users.add(new User(1, "Huisarts",
+        users.add(new HuisartsUser(1, "Huisarts",
                 Arrays.asList("Bart Betermaker", "Henk Hulper", "Pieter Paracetemol")));
         users.add(new FysioUser(2, "Fysiotherapeut",
                 Arrays.asList("Vincent Voeten", "Bas Blessure", "Gerrie Gewricht")));
-        users.add(new User(3, "Apotheker",
+        users.add(new ApotheekUser(3, "Apotheker",
                 Arrays.asList("Mert Medicijnen", "Peter Pijnstiller", "Zara Zorgzaam")));
         users.add(new TandartsUser(4, "Tandarts",
                 Arrays.asList("Tina Tandenbleker", "Karel Kiespijn", "Barry Beugel")));

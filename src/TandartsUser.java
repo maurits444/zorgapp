@@ -1,8 +1,7 @@
 import java.util.List;
 
 public class TandartsUser extends User {
-
-    TandartsUser(int id, String name, List<String> roles) {
+    public TandartsUser(int id, String name, List<String> roles) {
         super(id, name, roles);
     }
 
@@ -11,6 +10,9 @@ public class TandartsUser extends User {
     }
 
     public boolean canAccessPatientWeight() {
+        return false;
+    }
+    public boolean canEditMedicijnen() {
         return false;
     }
 }

@@ -29,6 +29,6 @@ class User {
         return true;
     }
     public boolean canEditMedicijnen() {
-        return true;
+        return false;
     }
 }

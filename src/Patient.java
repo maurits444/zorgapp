@@ -185,12 +185,12 @@ public class Patient {
         if (requestingUser.canAccessPatientLength()) {
             System.out.format("%-17s %.2f M%n", "Lengte:", height);
         } else {
-            System.out.format("%-17s %s%n", "Lengte:", "Niet toegankelijk voor tandarts");
+            System.out.print("");
         }
         if (requestingUser.canAccessPatientWeight()) {
             System.out.format("%-17s %.2f kg%n", "Gewicht:", weight);
         } else {
-            System.out.format("%-17s %s%n", "Gewicht:", "Niet toegankelijk voor tandarts");
+            System.out.print("");
         }
         System.out.format("%-17s %.2f\n", "Body Mass Index:", getBMI());
         System.out.format("%-17s %s\n", "BMI Status:", getBMIStatus());

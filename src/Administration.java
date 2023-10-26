@@ -73,8 +73,16 @@ class Administration {
             System.out.format("%d:  Patient gegevens\n", VIEW);
             System.out.format("%d:  Bewerk de patient gegevens\n", EDIT);
             System.out.format("%d:  Medicijnenlijst\n", VIEW_MEDICINES);
-            System.out.format("%d:  Voeg een medicijn toe\n", ADD_MEDICINE);
-            System.out.format("%d:  Bewerk de medicijnen\n", EDIT_MEDICINE);
+           if (requestingUser.canEditMedicijnen()) {
+               System.out.format("%d:  Voeg een medicijn toe\n", ADD_MEDICINE);
+           } else {
+               System.out.print("");
+           }
+           if (requestingUser.canEditMedicijnen()) {
+               System.out.format("%d:  Bewerk de medicijnen\n", EDIT_MEDICINE);
+           } else {
+               System.out.print("");
+           }
             System.out.format("%d:  Terug\n", SWITCH);
 
             System.out.print("Kies een optie: ");
