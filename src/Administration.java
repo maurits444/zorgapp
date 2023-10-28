@@ -63,22 +63,39 @@ class Administration {
         }
     }
     public void viewConsultantRates() {
-        if (requestingUser != null) {
-            if (requestingUser instanceof TandartsUser) {
-                TandartsUser TandartsUser = (TandartsUser) requestingUser;
+        if (requestingUser instanceof TandartsUser) {
+            TandartsUser tandartsUser = (TandartsUser) requestingUser;
 
-                System.out.println("Tandarts Consultprijzen:");
-                System.out.println("Routine controle - €" + TandartsUser.getConsultRate("Routine controle"));
-                System.out.println("Extractie - €" + TandartsUser.getConsultRate("Extractie"));
-                System.out.println("Fluoridebehandeling - €" + TandartsUser.getConsultRate("Fluoridebehandeling"));
-                System.out.println("Wortelkanaalbehandeling - €" + TandartsUser.getConsultRate("Wortelkanaalbehandeling"));
-                System.out.println("Implantaat - €" + TandartsUser.getConsultRate("Implantaat"));
-            } else {
-                System.out.print("");
-            } }
+            System.out.println("Tandarts Consultprijzen:");
+            System.out.println("Routine controle - €" + tandartsUser.getConsultRate("Routine controle"));
+            System.out.println("Extractie - €" + tandartsUser.getConsultRate("Extractie"));
+            System.out.println("Fluoridebehandeling - €" + tandartsUser.getConsultRate("Fluoridebehandeling"));
+            System.out.println("Wortelkanaalbehandeling - €" + tandartsUser.getConsultRate("Wortelkanaalbehandeling"));
+            System.out.println("Implantaat - €" + tandartsUser.getConsultRate("Implantaat"));
+        } else if (requestingUser instanceof FysioUser) {
+            FysioUser fysioUser = (FysioUser) requestingUser;
+
+            System.out.println("Huisarts Consultprijzen:");
+            System.out.println("Standaard behandeling - €" + fysioUser.getConsultRate("Standaard behandeling"));
+            System.out.println("Tapen en bandageren - €" + fysioUser.getConsultRate("Tapen en bandageren"));
+            System.out.println("Mobilisatie - €" + fysioUser.getConsultRate("Mobilisatie"));
+            System.out.println("Massage - €" + fysioUser.getConsultRate("Massage"));
+            System.out.println("Manuele therapie - €" + fysioUser.getConsultRate("Manuele therapie"));
+            System.out.println("Dry Needling - €" + fysioUser.getConsultRate("Dry Needling"));
+            System.out.println("Gebruik van oefenbad - €" + fysioUser.getConsultRate("Gebruik van oefenbad"));
+        } else if (requestingUser instanceof HuisartsUser) {
+            HuisartsUser huisartsUser = (HuisartsUser) requestingUser;
+
+            System.out.println("Fysio Consultprijzen:");
+            System.out.println("Consult - €" + huisartsUser.getConsultRate("Consult"));
+            System.out.println("Huisbezoek - €" + huisartsUser.getConsultRate("Huisbezoek"));
+            System.out.println("Gezondheidsonderzoek - €" + huisartsUser.getConsultRate("Gezondheidsonderzoek"));
+        } else {
+            System.out.println("Access denied. User is not authorized to view consultant rates.");
+        }
     }
 
-        public void menu() {
+    public void menu() {
             Scanner scanner = new Scanner(System.in);  // User input via this scanner.
 
             boolean nextCycle = true;

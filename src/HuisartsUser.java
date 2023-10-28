@@ -10,19 +10,16 @@ public class HuisartsUser extends User {
         super(id, name, roles);
         consultRates = new HashMap<>();
         // Voeg de bestaande tarieven toe aan de map
-        consultRates.put("Standaard behandeling", 17.50);
-        consultRates.put("Tapen en bandageren", 25.00);
-        consultRates.put("Mobilisatie", 25.00);
-        consultRates.put("Massage", 25.00);
-        consultRates.put("Manuele therapie", 50.00);
-        consultRates.put("Dry Needling", 50.00);
-        consultRates.put("Gebruik van oefenbad", 5.00);
+        consultRates.put("Consult", 21.50);
+        consultRates.put("Huisbezoek", 43.00);
+        consultRates.put("Gezondheidsonderzoek", 43.00);
     }
 
-    // Methode om consulttarief op te halen
     public Double getConsultRate(String serviceName) {
         return consultRates.get(serviceName);
     }
+
+
     public boolean canEditMedicijnen() {
         return false;
     }
