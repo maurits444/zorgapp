@@ -21,6 +21,6 @@ public class HuisartsUser extends User {
 
 
     public boolean canEditMedicijnen() {
-        return false;
+        return true;
     }
 }

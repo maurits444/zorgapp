@@ -11,10 +11,11 @@ class Administration {
     private static final int VIEW = 1;
     private static final int EDIT = 2;
     private static final int VIEW_MEDICINES = 3;
-    private static final int ADD_MEDICINE = 4;
-    private static final int EDIT_MEDICINE = 5;
-    private static final int STOP = 6;
-    private static final int VIEW_CONSULTANT_RATES = 7; // Voeg dit toe aan de andere constants
+    private static final int VIEW_CONSULTANT_RATES = 4; // Voeg dit toe aan de andere constants
+    private static final int ADD_MEDICINE = 5;
+    private static final int EDIT_MEDICINE = 6;
+    private static final int STOP = 7;
+
 
 
 
@@ -66,7 +67,7 @@ class Administration {
         if (requestingUser instanceof TandartsUser) {
             TandartsUser tandartsUser = (TandartsUser) requestingUser;
 
-            System.out.println("Tandarts Consultprijzen:");
+            System.out.println("==== Tandarts Consultprijzen:========================");
             System.out.println("Routine controle - €" + tandartsUser.getConsultRate("Routine controle"));
             System.out.println("Extractie - €" + tandartsUser.getConsultRate("Extractie"));
             System.out.println("Fluoridebehandeling - €" + tandartsUser.getConsultRate("Fluoridebehandeling"));
@@ -75,7 +76,7 @@ class Administration {
         } else if (requestingUser instanceof FysioUser) {
             FysioUser fysioUser = (FysioUser) requestingUser;
 
-            System.out.println("Huisarts Consultprijzen:");
+            System.out.println("==== Huisarts Consultprijzen:========================");
             System.out.println("Standaard behandeling - €" + fysioUser.getConsultRate("Standaard behandeling"));
             System.out.println("Tapen en bandageren - €" + fysioUser.getConsultRate("Tapen en bandageren"));
             System.out.println("Mobilisatie - €" + fysioUser.getConsultRate("Mobilisatie"));
@@ -86,7 +87,7 @@ class Administration {
         } else if (requestingUser instanceof HuisartsUser) {
             HuisartsUser huisartsUser = (HuisartsUser) requestingUser;
 
-            System.out.println("Fysio Consultprijzen:");
+            System.out.println("==== Fysio Consultprijzen:========================");
             System.out.println("Consult - €" + huisartsUser.getConsultRate("Consult"));
             System.out.println("Huisbezoek - €" + huisartsUser.getConsultRate("Huisbezoek"));
             System.out.println("Gezondheidsonderzoek - €" + huisartsUser.getConsultRate("Gezondheidsonderzoek"));
@@ -108,8 +109,9 @@ class Administration {
                 System.out.format("%d:  Patient gegevens\n", VIEW);
                 System.out.format("%d:  Bewerk de patient gegevens\n", EDIT);
                 System.out.format("%d:  Medicijnenlijst\n", VIEW_MEDICINES);
+                System.out.format("%d:  Bekijk consulttarieven\n", VIEW_CONSULTANT_RATES); // Dit is toegevoegd
                 if (requestingUser.canEditMedicijnen()) {
-                    System.out.format("%d:  Voeg een medicijn toe\n", ADD_MEDICINE);
+                    System.out.format("%d:  Een recept voorschrijven\n", ADD_MEDICINE);
                 } else {
                     System.out.print("");
                 }
@@ -118,7 +120,6 @@ class Administration {
                 } else {
                     System.out.print("");
                 }
-                System.out.format("%d:  Bekijk consulttarieven\n", VIEW_CONSULTANT_RATES); // Dit is toegevoegd
 
                 System.out.print("Kies een optie: ");
                 int choice = scanner.nextInt();
