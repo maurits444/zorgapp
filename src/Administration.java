@@ -42,27 +42,41 @@ class Administration {
         patients.add(new Patient(5, "Tukker", "Tom",
                 LocalDate.parse("25-08-2003", formatter), 1.8f, 85.0f, 4.8f));
 
-
-        currentPatient = selectCurrentPatient();
-        System.out.format("Huidige patient: [%d] %s\n", requestingUser.getUserId(), requestingUser.getUserName());
+        System.out.println("Beschikbare patiënten:");
+        for (Patient patient : patients) {
+            System.out.println(patient.getId() + ". " + patient.getFirstName() + " " + patient.getSurname());
+        }
+        currentPatient = selectCurrentPatientByName();
+        System.out.format("Huidige patiënt: [%d] %s %s\n", requestingUser.getUserId(), currentPatient.getFirstName(), currentPatient.getSurname());
+    }
+    private Patient searchPatientByName(String firstName, String lastName) {
+        for (Patient patient : patients) {
+            if (patient.getFirstName().equalsIgnoreCase(firstName) && patient.getSurname().equalsIgnoreCase(lastName)) {
+                return patient;
+            }
+        }
+        return null;
     }
 
-    private Patient selectCurrentPatient() {
+    private Patient selectCurrentPatientByName() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("Kies een patient:");
-            for (int i = 0; i < patients.size(); i++) {
-                System.out.println((i + 1) + ". " + patients.get(i).getFirstName() + " " + patients.get(i).getSurname());
-            }
+            System.out.println("Voer de voornaam in van de patiënt:");
+            String firstName = scanner.next();
 
-            int choice = scanner.nextInt();
-            if (choice > 0 && choice <= patients.size()) {
-                return patients.get(choice - 1);
+            System.out.println("Voer de achternaam in van de patiënt:");
+            String lastName = scanner.next();
+
+            Patient foundPatient = searchPatientByName(firstName, lastName);
+
+            if (foundPatient != null) {
+                return foundPatient;
             } else {
-                System.out.println("Error, probeer opnieuw.");
+                System.out.println("Patiënt niet gevonden. Probeer opnieuw.");
             }
         }
     }
+
     public void viewConsultantRates() {
         if (requestingUser instanceof TandartsUser) {
             TandartsUser tandartsUser = (TandartsUser) requestingUser;
@@ -134,7 +148,7 @@ class Administration {
                         currentPatient.editData(requestingUser);
                         break;
                     case SWITCH:
-                        currentPatient = selectCurrentPatient();
+                        currentPatient = selectCurrentPatientByName();
                         break;
                     case VIEW_MEDICINES:
                         currentPatient.printMedicijnen();
