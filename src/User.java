@@ -2,7 +2,7 @@ import java.util.List;
 class User {
     public String userName;
     public int userId;
-    public List<String> roles; // Dit is de nieuwe lijst van rollen/namen voor elke User
+    public List<String> roles;
 
     public User(int userId, String userName, List<String> roles) {
         this.userId = userId;
@@ -30,7 +30,7 @@ class User {
     public boolean canAccessPatientWeight() {
         return true;
     }
-    public boolean canEditMedicijnen() {
+    public boolean canEditMedicine() {
         return false;
     }
 }

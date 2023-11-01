@@ -11,22 +11,15 @@ class Administration {
     private static final int VIEW = 1;
     private static final int EDIT = 2;
     private static final int VIEW_MEDICINES = 3;
-    private static final int VIEW_CONSULTANT_RATES = 4; // Voeg dit toe aan de andere constants
+    private static final int VIEW_CONSULTANT_RATES = 4;
     private static final int ADD_MEDICINE = 5;
     private static final int EDIT_MEDICINE = 6;
     private static final int STOP = 7;
-
-
-
 
     public Patient currentPatient;
     public User requestingUser;
     public List<Patient> patients = new ArrayList<>();
 
-
-    /**
-     * Constructor
-     */
     public Administration(User requestingUser) {
         this.requestingUser = requestingUser;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -47,11 +40,13 @@ class Administration {
             System.out.println(patient.getId() + ". " + patient.getFirstName() + " " + patient.getSurname());
         }
         currentPatient = selectCurrentPatientByName();
-        System.out.format("Huidige patiënt: [%d] %s %s\n", requestingUser.getUserId(), currentPatient.getFirstName(), currentPatient.getSurname());
+        System.out.format("Huidige patiënt: [%d] %s %s\n", requestingUser.getUserId(),
+                currentPatient.getFirstName(), currentPatient.getSurname());
     }
     private Patient searchPatientByName(String firstName, String lastName) {
         for (Patient patient : patients) {
-            if (patient.getFirstName().equalsIgnoreCase(firstName) && patient.getSurname().equalsIgnoreCase(lastName)) {
+            if (patient.getFirstName().equalsIgnoreCase(firstName)
+                    && patient.getSurname().equalsIgnoreCase(lastName)) {
                 return patient;
             }
         }
@@ -82,54 +77,67 @@ class Administration {
             TandartsUser tandartsUser = (TandartsUser) requestingUser;
 
             System.out.println("==== Tandarts Consultprijzen:========================");
-            System.out.println("Routine controle - €" + tandartsUser.getConsultRate("Routine controle"));
-            System.out.println("Extractie - €" + tandartsUser.getConsultRate("Extractie"));
-            System.out.println("Fluoridebehandeling - €" + tandartsUser.getConsultRate("Fluoridebehandeling"));
-            System.out.println("Wortelkanaalbehandeling - €" + tandartsUser.getConsultRate("Wortelkanaalbehandeling"));
-            System.out.println("Implantaat - €" + tandartsUser.getConsultRate("Implantaat"));
+            System.out.println("Routine controle - €"
+                    + tandartsUser.getConsultRate("Routine controle"));
+            System.out.println("Extractie - €"
+                    + tandartsUser.getConsultRate("Extractie"));
+            System.out.println("Fluoridebehandeling - €"
+                    + tandartsUser.getConsultRate("Fluoridebehandeling"));
+            System.out.println("Wortelkanaalbehandeling - €"
+                    + tandartsUser.getConsultRate("Wortelkanaalbehandeling"));
+            System.out.println("Implantaat - €"
+                    + tandartsUser.getConsultRate("Implantaat"));
         } else if (requestingUser instanceof FysioUser) {
             FysioUser fysioUser = (FysioUser) requestingUser;
 
             System.out.println("==== Huisarts Consultprijzen:========================");
-            System.out.println("Standaard behandeling - €" + fysioUser.getConsultRate("Standaard behandeling"));
-            System.out.println("Tapen en bandageren - €" + fysioUser.getConsultRate("Tapen en bandageren"));
-            System.out.println("Mobilisatie - €" + fysioUser.getConsultRate("Mobilisatie"));
-            System.out.println("Massage - €" + fysioUser.getConsultRate("Massage"));
-            System.out.println("Manuele therapie - €" + fysioUser.getConsultRate("Manuele therapie"));
-            System.out.println("Dry Needling - €" + fysioUser.getConsultRate("Dry Needling"));
-            System.out.println("Gebruik van oefenbad - €" + fysioUser.getConsultRate("Gebruik van oefenbad"));
+            System.out.println("Standaard behandeling - €"
+                    + fysioUser.getConsultRate("Standaard behandeling"));
+            System.out.println("Tapen en bandageren - €"
+                    + fysioUser.getConsultRate("Tapen en bandageren"));
+            System.out.println("Mobilisatie - €"
+                    + fysioUser.getConsultRate("Mobilisatie"));
+            System.out.println("Massage - €"
+                    + fysioUser.getConsultRate("Massage"));
+            System.out.println("Manuele therapie - €"
+                    + fysioUser.getConsultRate("Manuele therapie"));
+            System.out.println("Dry Needling - €"
+                    + fysioUser.getConsultRate("Dry Needling"));
+            System.out.println("Gebruik van oefenbad - €"
+                    + fysioUser.getConsultRate("Gebruik van oefenbad"));
         } else if (requestingUser instanceof HuisartsUser) {
             HuisartsUser huisartsUser = (HuisartsUser) requestingUser;
 
             System.out.println("==== Fysio Consultprijzen:========================");
-            System.out.println("Consult - €" + huisartsUser.getConsultRate("Consult"));
-            System.out.println("Huisbezoek - €" + huisartsUser.getConsultRate("Huisbezoek"));
-            System.out.println("Gezondheidsonderzoek - €" + huisartsUser.getConsultRate("Gezondheidsonderzoek"));
+            System.out.println("Consult - €"
+                    + huisartsUser.getConsultRate("Consult"));
+            System.out.println("Huisbezoek - €"
+                    + huisartsUser.getConsultRate("Huisbezoek"));
+            System.out.println("Gezondheidsonderzoek - €"
+                    + huisartsUser.getConsultRate("Gezondheidsonderzoek"));
         } else {
-            System.out.println("Access denied. User is not authorized to view consultant rates.");
+            System.out.println("Geen toegang voor deze gebruiker.");
         }
     }
 
     public void menu() {
-            Scanner scanner = new Scanner(System.in);  // User input via this scanner.
+            Scanner scanner = new Scanner(System.in);
 
             boolean nextCycle = true;
             while (nextCycle) {
                 System.out.format("%s\n", "=".repeat(80));
                 System.out.format("Huidige patient: %s\n", currentPatient.fullName());
-
-                // Print menu on screen
                 System.out.format("%d:  Terug\n", SWITCH);
                 System.out.format("%d:  Patient gegevens\n", VIEW);
                 System.out.format("%d:  Bewerk de patient gegevens\n", EDIT);
                 System.out.format("%d:  Medicijnenlijst\n", VIEW_MEDICINES);
-                System.out.format("%d:  Bekijk consulttarieven\n", VIEW_CONSULTANT_RATES); // Dit is toegevoegd
-                if (requestingUser.canEditMedicijnen()) {
+                System.out.format("%d:  Bekijk consulttarieven\n", VIEW_CONSULTANT_RATES);
+                if (requestingUser.canEditMedicine()) {
                     System.out.format("%d:  Een recept voorschrijven\n", ADD_MEDICINE);
                 } else {
                     System.out.print("");
                 }
-                if (requestingUser.canEditMedicijnen()) {
+                if (requestingUser.canEditMedicine()) {
                     System.out.format("%d:  Bewerk de medicijnen\n", EDIT_MEDICINE);
                 } else {
                     System.out.print("");
@@ -138,7 +146,7 @@ class Administration {
                 System.out.print("Kies een optie: ");
                 int choice = scanner.nextInt();
                 switch (choice) {
-                    case STOP: // stop loop
+                    case STOP:
                         nextCycle = false;
                         break;
                     case VIEW:
@@ -148,19 +156,19 @@ class Administration {
                         currentPatient.editData(requestingUser);
                         break;
                     case SWITCH:
-                        currentPatient = selectCurrentPatientByName();
+                        currentPatient = selectCurrentPatientByName(); //zoekfunctie
                         break;
                     case VIEW_MEDICINES:
-                        currentPatient.printMedicijnen();
+                        currentPatient.printMedicine(); //medicijnenlijst
                         break;
                     case ADD_MEDICINE:
-                        currentPatient.voegNieuwMedicijnToe();
+                        currentPatient.addMedicine(); //medicijnen toevoegen
                         break;
                     case EDIT_MEDICINE:
-                        currentPatient.editMedicijnForPatient(requestingUser);
+                        currentPatient.editMedicineForPatient(requestingUser); // medicijnen bewerken
                         break;
                     case VIEW_CONSULTANT_RATES:
-                        viewConsultantRates(); // Dit is toegevoegd
+                        viewConsultantRates();
                         break;
                     default:
                         System.out.println("Error, probeer opnieuw. Kies een cijfer uit de lijst.");

@@ -5,7 +5,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-//... any other imports
+
 
 
 public class Patient {
@@ -25,9 +25,10 @@ public class Patient {
     private float height;
     private float weight;
     private float lungsCapacity;
-    private List<Medicijn> medicijnen;
+    private List<Medicine> medicines;
 
-    public Patient(int id, String surname, String firstName, LocalDate dateOfBirth, float height, float weight, float lungsCapacity) {
+    public Patient(int id, String surname, String firstName, LocalDate dateOfBirth,
+                   float height, float weight, float lungsCapacity) {
         this.id = id;
         setSurname(surname);
         setFirstName(firstName);
@@ -35,7 +36,7 @@ public class Patient {
         setHeight(height);
         setWeight(weight);
         setLungsCapacity(lungsCapacity);
-        this.medicijnen = createDefaultMedicijnen();
+        this.medicines = createDefaultMedicine();
     }
 
 
@@ -81,18 +82,18 @@ public class Patient {
         return lungsCapacity;
     }
 
-    private List<Medicijn> createDefaultMedicijnen() {
-        List<Medicijn> defaultMedicijnen = new ArrayList<>();
+    private List<Medicine> createDefaultMedicine() {
+        List<Medicine> defaultMedicine = new ArrayList<>();
 
-        defaultMedicijnen.add(new Medicijn("Ibuprofen", "200mg", "3 keer per dag \n"));
-        defaultMedicijnen.add(new Medicijn("Omeprazol", "20mg", "1 keer per dag \n"));
-        defaultMedicijnen.add(new Medicijn("Loratadine", "10mg", "2 keer per dag \n"));
-        defaultMedicijnen.add(new Medicijn("Amoxicilline", "500mg", "3 keer per dag \n"));
+        defaultMedicine.add(new Medicine("Ibuprofen", "200mg", "3 keer per dag \n"));
+        defaultMedicine.add(new Medicine("Omeprazol", "20mg", "1 keer per dag \n"));
+        defaultMedicine.add(new Medicine("Loratadine", "10mg", "2 keer per dag \n"));
+        defaultMedicine.add(new Medicine("Amoxicilline", "500mg", "3 keer per dag \n"));
 
-        return defaultMedicijnen;
+        return defaultMedicine;
     }
 
-    // Setters with validation
+    // Setters met validation
     void setSurname(String surname) {
         if (surname != null && !surname.trim().isEmpty()) {
             this.surname = surname;
@@ -138,25 +139,26 @@ public class Patient {
         }
     }
 
-    public List<Medicijn> getMedicijnen() {
-        return medicijnen;
+    public List<Medicine> getMedicine() {
+        return medicines;
     }
 
-    void addNewMedicijn(String medicijnnaam, String dosering, String frequentie) {
-        Medicijn medicijn = new Medicijn(medicijnnaam, dosering, frequentie);
-        this.medicijnen.add(medicijn);
+    void addNewMedicine(String medicineName, String dose, String frequency) {
+        Medicine medicine = new Medicine(medicineName, dose, frequency);
+        this.medicines.add(medicine);
     }
 
 
-    public void printMedicijnen() {
-        System.out.println("Lijst van medicijnen:");
-        for (Medicijn medicijn : this.medicijnen) {
-            System.out.println("Medicijn: " + medicijn.getName() + " \nDosering: " + medicijn.getDose() + " \nFrequentie: " + medicijn.getFrequency());
-            System.out.println(); // Voeg een extra witregel toe aan het einde, voor nette opmaak
+    public void printMedicine() {
+        System.out.println("List of medicines:");
+        for (Medicine medicine : this.medicines) {
+            System.out.println("Medicijn: " + medicine.getName() + " \nDosering: " + medicine.getDose()
+                    + " \nFrequentie: " + medicine.getFrequency());
+            System.out.println();
         }
     }
 
-    public void voegNieuwMedicijnToe() {
+    public void addMedicine() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Voer de naam van het medicijn in:");
@@ -165,10 +167,10 @@ public class Patient {
         System.out.println("Voer de dosering in:");
         String dosering = scanner.nextLine();
 
-        System.out.println("Voer de frequentie in:");
+        System.out.println("Voer de frequentie in, en eventueel een bijsluiter:");
         String frequentie = scanner.nextLine();
 
-        addNewMedicijn(medicijnnaam, dosering, frequentie);
+        addNewMedicine(medicijnnaam, dosering, frequentie);
         System.out.println("Nieuw medicijn toegevoegd!");
     }
 
@@ -184,7 +186,8 @@ public class Patient {
         System.out.format("===== Patient id=%d ==============================\n", id);
         System.out.format("%-17s %s\n", "Achternaam:", surname);
         System.out.format("%-17s %s\n", "Voornaam:", firstName);
-        System.out.format("%-17s %s\n", "Geboortedatum:", dateOfBirth.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+        System.out.format("%-17s %s\n", "Geboortedatum:",
+                dateOfBirth.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
         if (requestingUser.canAccessPatientLength()) {
             System.out.format("%-17s %.2f M%n", "Lengte:", height);
         } else {
@@ -230,7 +233,8 @@ public class Patient {
             System.out.println("[0] Terug");
             System.out.println("[1] Achternaam (" + surname + ")");
             System.out.println("[2] Voornaam (" + firstName + ")");
-            System.out.println("[3] Geboortedatum (" + dateOfBirth.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + ")");
+            System.out.println("[3] Geboortedatum " +
+                    "(" + dateOfBirth.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + ")");
             System.out.println("[4] Lengte (" + height + "M)");
             System.out.println("[5] Gewicht (" + weight + "kg)");
             System.out.println("[6] Longinhoud (" + lungsCapacity + "L)");
@@ -239,7 +243,7 @@ public class Patient {
 
             if (propertyId < 0 || propertyId > 6) {
                 System.out.println("Error: Voer aub een getal in tussen 0 en 6.");
-                continue; // Skip the rest of the loop iteration and start over
+                continue;
             }
 
             if (propertyId == RETURN) {
@@ -247,7 +251,7 @@ public class Patient {
             }
 
             System.out.println("Vul de nieuwe gegevens in :");
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
             String text = scanner.nextLine();
 
             switch (propertyId) {
@@ -261,7 +265,8 @@ public class Patient {
                     try {
                         LocalDate enteredDate = LocalDate.parse(text, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
                         if (enteredDate.isAfter(LocalDate.now())) {
-                            System.out.println("Error: Geboortedatum mag niet in de toekomst liggen. Probeer het opnieuw.");
+                            System.out.println
+                                    ("Error: Geboortedatum mag niet in de toekomst liggen. Probeer het opnieuw.");
                         } else {
                             setDateOfBirth(enteredDate);
                             System.out.println("Geboortedatum succesvol verandert.");
@@ -298,13 +303,16 @@ public class Patient {
         }
     }
 
-    public void editMedicijn(int index, String medicijnnaam, String dosering, String frequentie, User requestingUser) {
-        if (requestingUser.canEditMedicijnen()) {
-            if (index >= 0 && index < medicijnen.size()) {
-                Medicijn medicijn = medicijnen.get(index);
-                medicijn.setName(medicijnnaam);
-                medicijn.setDose(dosering);
-                medicijn.setFrequency(frequentie);
+    public void editMedicineForPatient() {
+    }
+
+    public void editMedicine(int index, String medicineName, String dose, String frequency, User requestingUser) {
+        if (requestingUser.canEditMedicine()) {
+            if (index >= 0 && index < medicines.size()) {
+                Medicine medicine = medicines.get(index);
+                medicine.setName(medicineName);
+                medicine.setDose(dose);
+                medicine.setFrequency(frequency);
                 System.out.println("Medicijn succesvol bewerkt.");
             } else {
                 System.out.println("Ongeldige medicijnindex. Geef een geldige index op.");
@@ -314,35 +322,30 @@ public class Patient {
         }
     }
 
-    public void editMedicijnForPatient(User requestingUser) {
+    public void editMedicineForPatient(User requestingUser) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Selecteer een medicijn:");
-        for (int i = 0; i < medicijnen.size(); i++) {
-            System.out.println((i + 1) + ". " + medicijnen.get(i).getName());
+        for (int i = 0; i < medicines.size(); i++) {
+            System.out.println((i + 1) + ". " + medicines.get(i).getName());
         }
 
         int choice = scanner.nextInt();
-        if (choice > 0 && choice <= medicijnen.size()) {
+        if (choice > 0 && choice <= medicines.size()) {
             int medicationIndex = choice - 1;
-            System.out.println("Voer de nieuwe gegevens in:");
+            System.out.println("Voeg een Medicijn toe:");
 
-            System.out.print("Medicijnnaam: ");
-            String medicijnnaam = scanner.next();
+            System.out.print("Medicijn Naam: ");
+            String medicineName = scanner.next();
 
             System.out.print("Dosering: ");
-            String dosering = scanner.next();
+            String dose = scanner.next();
 
             System.out.print("Frequentie: ");
-            String frequentie = scanner.next();
+            String frequency = scanner.next();
 
-            editMedicijn(medicationIndex, medicijnnaam, dosering, frequentie, requestingUser);
+            editMedicine(medicationIndex, medicineName, dose, frequency, requestingUser);
         } else {
-            System.out.println("Error, verkeerde invoer. Probeer opnieuw.");
+            System.out.println("Error, verkeerde input.");
         }
-    }
-
-    public void editMedicijnForPatient() {
-    }
-
-}
+    }}

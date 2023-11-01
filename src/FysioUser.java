@@ -4,12 +4,11 @@ import java.util.HashMap;
 
 public class FysioUser extends User {
 
-    private Map<String, Double> consultRates; // Een map om de tarieven op te slaan
+    private Map<String, Double> consultRates;
 
     public FysioUser(int id, String name, List<String> roles) {
         super(id, name, roles);
         consultRates = new HashMap<>();
-        // Voeg de bestaande tarieven toe aan de map
         consultRates.put("Standaard behandeling", 17.50);
         consultRates.put("Tapen en bandageren", 25.00);
         consultRates.put("Mobilisatie", 25.00);
@@ -24,7 +23,7 @@ public class FysioUser extends User {
     }
 
 
-    public boolean canEditMedicijnen() {
+    public boolean canEditMedicine() {
         return false;
     }
 }

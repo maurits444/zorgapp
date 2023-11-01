@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class zorgapp {
+public class Zorgapp {
 
     public static void main(String[] args) {
         List<User> users = new ArrayList<>();
@@ -29,7 +29,7 @@ public class zorgapp {
         while (true) {
             System.out.println("Kies een gebruiker:");
 
-            // Toon alle gebruikers
+
             for (int i = 0; i < users.size(); i++) {
                 System.out.println((i + 1) + ". " + users.get(i).getUserName());
             }
@@ -37,7 +37,7 @@ public class zorgapp {
             int choice = scanner.nextInt();
 
             if (choice > 0 && choice <= users.size()) {
-                return users.get(choice - 1); // -1 omdat lijsten 0-gebaseerd zijn
+                return users.get(choice - 1);
             } else {
                 System.out.println("Error, probeer opnieuw. Kies een cijfer uit de lijst");
             }

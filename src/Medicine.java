@@ -1,9 +1,9 @@
-public class Medicijn {
+public class Medicine {
     private String name;
     private String dose;
     private String frequency;
 
-    public Medicijn(String name, String dose, String frequency) {
+    public Medicine(String name, String dose, String frequency) {
         this.name = name;
         this.dose = dose;
         this.frequency = frequency;
@@ -34,6 +34,4 @@ public class Medicijn {
     public void setFrequency(String frequency) {
         this.frequency = frequency;
     }
-
-
 }
