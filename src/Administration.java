@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 
 class Administration {
+    // Fields
     private static final int SWITCH = 0;
     private static final int VIEW = 1;
     private static final int EDIT = 2;
@@ -19,6 +20,7 @@ class Administration {
     public User requestingUser;
     public List<Patient> patients = new ArrayList<>();
 
+    // Constructors
     public Administration(User requestingUser) {
         this.requestingUser = requestingUser;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -42,35 +44,8 @@ class Administration {
         System.out.format("Huidige patiënt: [%d] %s %s\n", requestingUser.getUserId(),
                 currentPatient.getFirstName(), currentPatient.getSurname());
     }
-    private Patient searchPatientByName(String firstName, String lastName) {
-        for (Patient patient : patients) {
-            if (patient.getFirstName().equalsIgnoreCase(firstName)
-                    && patient.getSurname().equalsIgnoreCase(lastName)) {
-                return patient;
-            }
-        }
-        return null;
-    }
 
-    private Patient selectCurrentPatientByName() {
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            System.out.println("Voer de voornaam in van de patiënt:");
-            String firstName = scanner.next();
-
-            System.out.println("Voer de achternaam in van de patiënt:");
-            String lastName = scanner.next();
-
-            Patient foundPatient = searchPatientByName(firstName, lastName);
-
-            if (foundPatient != null) {
-                return foundPatient;
-            } else {
-                System.out.println("Patiënt niet gevonden. Probeer opnieuw.");
-            }
-        }
-    }
-
+    // Methods for viewing Data
     public void viewConsultantRates() {
         if (requestingUser instanceof TandartsUser) {
             TandartsUser tandartsUser = (TandartsUser) requestingUser;
@@ -116,9 +91,9 @@ class Administration {
                     + huisartsUser.getConsultRate("Gezondheidsonderzoek"));
         } else {
             System.out.println("Geen toegang voor deze gebruiker.");
-        }
-    }
+        } }
 
+    // Main Menu
     public void menu() {
         Scanner scanner = new Scanner(System.in);
 
@@ -172,7 +147,34 @@ class Administration {
                 default:
                     System.out.println("Error, probeer opnieuw. Kies een cijfer uit de lijst.");
                     break;
+            } } }
+
+// Helper methods
+    private Patient searchPatientByName(String firstName, String lastName){
+                for (Patient patient : patients) {
+                    if (patient.getFirstName().equalsIgnoreCase(firstName)
+                            && patient.getSurname().equalsIgnoreCase(lastName)) {
+                        return patient;
+                    }
+                }
+                return null; }
+
+
+    private Patient selectCurrentPatientByName() {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("Voer de voornaam in van de patiënt:");
+            String firstName = scanner.next();
+
+            System.out.println("Voer de achternaam in van de patiënt:");
+            String lastName = scanner.next();
+
+            Patient foundPatient = searchPatientByName(firstName, lastName);
+
+            if (foundPatient != null) {
+                return foundPatient;
+            } else {
+                System.out.println("Patiënt niet gevonden. Probeer opnieuw.");
             }
         }
-    }
-}
+    } }

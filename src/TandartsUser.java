@@ -15,10 +15,12 @@ public class TandartsUser extends User {
         consultRates.put("Implantaat", 55.00);
     }
 
+    // Getters
     public Double getConsultRate(String serviceName) {
         return consultRates.get(serviceName);
     }
 
+    // Access
     public boolean canAccessPatientLength() {
         return false;
     }

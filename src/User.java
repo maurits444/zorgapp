@@ -9,6 +9,8 @@ class User {
         this.userName = userName;
         this.roles = roles;
     }
+
+    // Getters
     public String getUserName() {
         return userName;
     }
@@ -23,6 +25,8 @@ class User {
     public ConsultInfo getConsultInfo(String serviceName) {
         return null;
     }
+
+    // Access
     public boolean canAccessPatientLength() {
         return true;
     }

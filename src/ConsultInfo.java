@@ -7,6 +7,7 @@ public class ConsultInfo {
         this.rate = rate;
     }
 
+    // Getters
     public String getServiceName() {
         return serviceName;
     }

@@ -24,6 +24,7 @@ public class Zorgapp {
         administration.menu();
     }
 
+    // User selection
     public static User selectUser(List<User> users) {
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -43,6 +44,7 @@ public class Zorgapp {
         }
     }
 
+    // Role selection
     public static String selectRole(User user) {
         Scanner scanner = new Scanner(System.in);
         while (true) {

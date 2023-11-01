@@ -18,11 +18,12 @@ public class FysioUser extends User {
         consultRates.put("Gebruik van oefenbad", 5.00);
     }
 
+    // Getters
     public Double getConsultRate(String serviceName) {
         return consultRates.get(serviceName);
     }
 
-
+    // Access
     public boolean canEditMedicine() {
         return false;
     }

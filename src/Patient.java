@@ -6,9 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
-
 public class Patient {
+    // Constants for properties
     private static final int RETURN = 0;
     private static final int SURNAME = 1;
     private static final int FIRSTNAME = 2;
@@ -17,6 +16,7 @@ public class Patient {
     private static final int WEIGHT = 5;
     private static final int LUNGSCAPACITY = 6;
 
+    // Properties
     private int id;
     private String surname;
     private String firstName;
@@ -27,6 +27,7 @@ public class Patient {
     private float lungsCapacity;
     private List<Medicine> medicines;
 
+    // Constructor
     public Patient(int id, String surname, String firstName, LocalDate dateOfBirth,
                    float height, float weight, float lungsCapacity) {
         this.id = id;
@@ -39,15 +40,6 @@ public class Patient {
         this.medicines = createDefaultMedicine();
     }
 
-
-    private int calcAge(LocalDate dob) {
-        LocalDate today = LocalDate.now();
-        return Period.between(dob, today).getYears();
-    }
-
-    public String fullName() {
-        return firstName + " " + surname;
-    }
 
     // Getters
     int getId() {
@@ -82,18 +74,23 @@ public class Patient {
         return lungsCapacity;
     }
 
-    private List<Medicine> createDefaultMedicine() {
-        List<Medicine> defaultMedicine = new ArrayList<>();
-
-        defaultMedicine.add(new Medicine("Ibuprofen", "200mg", "3 keer per dag \n"));
-        defaultMedicine.add(new Medicine("Omeprazol", "20mg", "1 keer per dag \n"));
-        defaultMedicine.add(new Medicine("Loratadine", "10mg", "2 keer per dag \n"));
-        defaultMedicine.add(new Medicine("Amoxicilline", "500mg", "3 keer per dag \n"));
-
-        return defaultMedicine;
+    public List<Medicine> getMedicine() {
+        return medicines;
     }
 
-    // Setters met validation
+    public float getBMI() {
+        return weight / (height * height);
+    }
+
+    String getBMIStatus() {
+        float bmi = getBMI();
+        if (bmi < 18.5f) return "Underweight";
+        if (bmi < 25f) return "Normal weight";
+        if (bmi < 30f) return "Overweight";
+        return "Obese";
+    }
+
+    // Setters with validation
     void setSurname(String surname) {
         if (surname != null && !surname.trim().isEmpty()) {
             this.surname = surname;
@@ -117,7 +114,7 @@ public class Patient {
         if (height > 0 && height <= 250) {
             this.height = height;
         } else {
-            System.out.println("Error: Lengte moet tussen de 0 en 250 vallen.");
+            System.out.println("Error: Height must be between 0 and 250.");
         }
     }
 
@@ -125,12 +122,8 @@ public class Patient {
         if (weight > 0 && weight <= 250) {
             this.weight = weight;
         } else {
-            System.out.println("Error: Gewicht moet tussen de 0 en 250 vallen.");
+            System.out.println("Error: Weight must be between 0 and 250.");
         }
-    }
-
-    float getBMI() {
-        return weight / (height * height);
     }
 
     void setLungsCapacity(float lungsCapacity) {
@@ -139,8 +132,16 @@ public class Patient {
         }
     }
 
-    public List<Medicine> getMedicine() {
-        return medicines;
+    // Medicine
+    private List<Medicine> createDefaultMedicine() {
+        List<Medicine> defaultMedicine = new ArrayList<>();
+
+        defaultMedicine.add(new Medicine("Ibuprofen", "200mg", "3 keer per dag \n"));
+        defaultMedicine.add(new Medicine("Omeprazol", "20mg", "1 keer per dag \n"));
+        defaultMedicine.add(new Medicine("Loratadine", "10mg", "2 keer per dag \n"));
+        defaultMedicine.add(new Medicine("Amoxicilline", "500mg", "3 keer per dag \n"));
+
+        return defaultMedicine;
     }
 
     void addNewMedicine(String medicineName, String dose, String frequency) {
@@ -148,12 +149,11 @@ public class Patient {
         this.medicines.add(medicine);
     }
 
-
     public void printMedicine() {
         System.out.println("List of medicines:");
         for (Medicine medicine : this.medicines) {
-            System.out.println("Medicijn: " + medicine.getName() + " \nDosering: " + medicine.getDose()
-                    + " \nFrequentie: " + medicine.getFrequency());
+            System.out.println("Medicine: " + medicine.getName() + "\nDosage: " + medicine.getDose()
+                    + "\nFrequency: " + medicine.getFrequency());
             System.out.println();
         }
     }
@@ -161,56 +161,117 @@ public class Patient {
     public void addMedicine() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Voer de naam van het medicijn in:");
-        String medicijnnaam = scanner.nextLine();
+        System.out.println("Enter the name of the medicine:");
+        String medicineName = scanner.nextLine();
 
-        System.out.println("Voer de dosering in:");
-        String dosering = scanner.nextLine();
+        System.out.println("Enter the dosage:");
+        String dose = scanner.nextLine();
 
-        System.out.println("Voer de frequentie in, en eventueel een bijsluiter:");
-        String frequentie = scanner.nextLine();
+        System.out.println("Enter the frequency and any additional notes:");
+        String frequency = scanner.nextLine();
 
-        addNewMedicine(medicijnnaam, dosering, frequentie);
-        System.out.println("Nieuw medicijn toegevoegd!");
+        addNewMedicine(medicineName, dose, frequency);
+        System.out.println("New medicine added!");
     }
 
-    String getBMIStatus() {
-        float bmi = getBMI();
-        if (bmi < 18.5f) return "Ondergewicht";
-        if (bmi < 25f) return "Normaal gewicht";
-        if (bmi < 30f) return "Overgewicht";
-        return "Obese";
+    void editMedicine(int index, String medicineName, String dose, String frequency, User requestingUser) {
+        if (requestingUser.canEditMedicine()) {
+            if (index >= 0 && index < medicines.size()) {
+                Medicine medicine = medicines.get(index);
+                medicine.setName(medicineName);
+                medicine.setDose(dose);
+                medicine.setFrequency(frequency);
+                System.out.println("Medicine successfully edited.");
+            } else {
+                System.out.println("Invalid medicine index. Provide a valid index.");
+            }
+        } else {
+            System.out.println("The user does not have permission to edit medicines.");
+        }
+    }
+
+    public void editMedicineForPatient(User requestingUser) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Select a medicine:");
+        for (int i = 0; i < medicines.size(); i++) {
+            System.out.println((i + 1) + ". " + medicines.get(i).getName());
+        }
+
+        int choice = 0;
+        boolean validInput = false;
+
+        while (!validInput) {
+            System.out.print("Choose a medicine to edit: ");
+
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+                if (choice > 0 && choice <= medicines.size()) {
+                    validInput = true;
+                } else {
+                    System.out.println("Error, invalid input. Choose a number from the list.");
+                }
+            } else {
+                System.out.println("Error, invalid input. Enter a number.");
+                scanner.next();
+            }
+        }
+
+        int medicationIndex = choice - 1;
+
+        scanner.nextLine();
+
+        System.out.print("Medicine Name: ");
+        String medicineName = scanner.nextLine();
+
+        System.out.print("Dosage: ");
+        String dose = scanner.nextLine();
+
+        System.out.print("Frequency: ");
+        String frequency = scanner.nextLine();
+
+        editMedicine(medicationIndex, medicineName, dose, frequency, requestingUser);
+    }
+
+    // Other methods for patient data handling
+    private int calcAge(LocalDate dob) {
+        LocalDate today = LocalDate.now();
+        return Period.between(dob, today).getYears();
+    }
+
+    String fullName() {
+        return firstName + " " + surname;
     }
 
     void viewData(User requestingUser) {
         System.out.format("===== Patient id=%d ==============================\n", id);
-        System.out.format("%-17s %s\n", "Achternaam:", surname);
-        System.out.format("%-17s %s\n", "Voornaam:", firstName);
-        System.out.format("%-17s %s\n", "Geboortedatum:",
+        System.out.format("%-17s %s\n", "Surname:", surname);
+        System.out.format("%-17s %s\n", "First Name:", firstName);
+        System.out.format("%-17s %s\n", "Date of Birth",
                 dateOfBirth.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
         if (requestingUser.canAccessPatientLength()) {
-            System.out.format("%-17s %.2f M%n", "Lengte:", height);
+            System.out.format("%-17s %.2f M%n", "Height:", height);
         } else {
             System.out.print("");
         }
         if (requestingUser.canAccessPatientWeight()) {
-            System.out.format("%-17s %.2f kg%n", "Gewicht:", weight);
+            System.out.format("%-17s %.2f kg%n", "Weight:", weight);
         } else {
             System.out.print("");
         }
         System.out.format("%-17s %.2f\n", "Body Mass Index:", getBMI());
         System.out.format("%-17s %s\n", "BMI Status:", getBMIStatus());
-        System.out.format("%-17s %.2f L\n", "Longinhoud:", getLungsCapacity());
-        System.out.format("%-17s %d Jaar\n", "Leeftijd:", age);
+        System.out.format("%-17s %.2f L\n", "Lung Capacity:", getLungsCapacity());
+        System.out.format("%-17s %d Years\n", "Age:", age);
         System.out.format("%-17s %.2f\n", "Body Mass Index:", getBMI());
         System.out.format("%-17s %s\n", "BMI Status:", getBMIStatus());
-        System.out.format("%-17s %.2f L\n", "Longinhoud:", getLungsCapacity());
+        System.out.format("%-17s %.2f L\n", "Lung Capacity:", getLungsCapacity());
     }
 
     public float getHeight(User requestingUser) {
         List<String> roles = requestingUser.getRoles();
-        if (roles != null && roles.contains("TANDARTS")) {
-            System.out.println("Niet toegankelijk voor tandarts.");
+        if (roles != null && roles.contains("DENTIST")) {
+            System.out.println("Not accessible for a dentist.");
             return -1;
         }
         return height;
@@ -218,8 +279,8 @@ public class Patient {
 
     public float getWeight(User requestingUser) {
         List<String> roles = requestingUser.getRoles();
-        if (roles != null && roles.contains("TANDARTS")) {
-            System.out.println("Niet toegankelijk voor tandarts.");
+        if (roles != null && roles.contains("DENTIST")) {
+            System.out.println("Not accessible for a dentist.");
             return -1;
         }
         return weight;
@@ -302,62 +363,5 @@ public class Patient {
             }
         }
     }
+}
 
-    public void editMedicine(int index, String medicineName, String dose, String frequency, User requestingUser) {
-        if (requestingUser.canEditMedicine()) {
-            if (index >= 0 && index < medicines.size()) {
-                Medicine medicine = medicines.get(index);
-                medicine.setName(medicineName);
-                medicine.setDose(dose);
-                medicine.setFrequency(frequency);
-                System.out.println("Medicijn succesvol bewerkt.");
-            } else {
-                System.out.println("Ongeldige medicijnindex. Geef een geldige index op.");
-            }
-        } else {
-            System.out.println("De gebruiker heeft geen toestemming om medicijnen te bewerken.");
-        }
-    }
-
-    public void editMedicineForPatient(User requestingUser) {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Selecteer een medicijn:");
-        for (int i = 0; i < medicines.size(); i++) {
-            System.out.println((i + 1) + ". " + medicines.get(i).getName());
-        }
-
-        int choice = 0;
-        boolean validInput = false;
-
-        while (!validInput) {
-            System.out.print("Kies een medicijn om te bewerken: ");
-
-            if (scanner.hasNextInt()) {
-                choice = scanner.nextInt();
-                if (choice > 0 && choice <= medicines.size()) {
-                    validInput = true;
-                } else {
-                    System.out.println("Error, ongeldige invoer. Kies een nummer uit de lijst.");
-                }
-            } else {
-                System.out.println("Error, ongeldige invoer. Voer een nummer in.");
-                scanner.next();
-            }
-        }
-
-        int medicationIndex = choice - 1;
-
-        scanner.nextLine();
-
-        System.out.print("Medicijn Naam: ");
-        String medicineName = scanner.nextLine();
-
-        System.out.print("Dosering: ");
-        String dose = scanner.nextLine();
-
-        System.out.print("Frequentie: ");
-        String frequency = scanner.nextLine();
-
-        editMedicine(medicationIndex, medicineName, dose, frequency, requestingUser);
-    }}

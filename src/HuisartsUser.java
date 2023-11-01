@@ -14,11 +14,12 @@ public class HuisartsUser extends User {
         consultRates.put("Gezondheidsonderzoek", 43.00);
     }
 
+    // Getters
     public Double getConsultRate(String serviceName) {
         return consultRates.get(serviceName);
     }
 
-
+    // Access
     public boolean canEditMedicine() {
         return true;
     }
