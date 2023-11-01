@@ -303,9 +303,6 @@ public class Patient {
         }
     }
 
-    public void editMedicineForPatient() {
-    }
-
     public void editMedicine(int index, String medicineName, String dose, String frequency, User requestingUser) {
         if (requestingUser.canEditMedicine()) {
             if (index >= 0 && index < medicines.size()) {
@@ -330,22 +327,37 @@ public class Patient {
             System.out.println((i + 1) + ". " + medicines.get(i).getName());
         }
 
-        int choice = scanner.nextInt();
-        if (choice > 0 && choice <= medicines.size()) {
-            int medicationIndex = choice - 1;
-            System.out.println("Voeg een Medicijn toe:");
+        int choice = 0;
+        boolean validInput = false;
 
-            System.out.print("Medicijn Naam: ");
-            String medicineName = scanner.next();
+        while (!validInput) {
+            System.out.print("Kies een medicijn om te bewerken: ");
 
-            System.out.print("Dosering: ");
-            String dose = scanner.next();
-
-            System.out.print("Frequentie: ");
-            String frequency = scanner.next();
-
-            editMedicine(medicationIndex, medicineName, dose, frequency, requestingUser);
-        } else {
-            System.out.println("Error, verkeerde input.");
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+                if (choice > 0 && choice <= medicines.size()) {
+                    validInput = true;
+                } else {
+                    System.out.println("Error, ongeldige invoer. Kies een nummer uit de lijst.");
+                }
+            } else {
+                System.out.println("Error, ongeldige invoer. Voer een nummer in.");
+                scanner.next();
+            }
         }
+
+        int medicationIndex = choice - 1;
+
+        scanner.nextLine();
+
+        System.out.print("Medicijn Naam: ");
+        String medicineName = scanner.nextLine();
+
+        System.out.print("Dosering: ");
+        String dose = scanner.nextLine();
+
+        System.out.print("Frequentie: ");
+        String frequency = scanner.nextLine();
+
+        editMedicine(medicationIndex, medicineName, dose, frequency, requestingUser);
     }}

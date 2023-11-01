@@ -9,7 +9,7 @@ public class Medicine {
         this.frequency = frequency;
     }
 
-    // Getter methods
+    // Getters
     public String getName() {
         return name;
     }
@@ -22,7 +22,7 @@ public class Medicine {
         return frequency;
     }
 
-    // Setter methods
+    // Setters
     public void setName(String name) {
         this.name = name;
     }

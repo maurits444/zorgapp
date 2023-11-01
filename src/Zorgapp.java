@@ -29,7 +29,6 @@ public class Zorgapp {
         while (true) {
             System.out.println("Kies een gebruiker:");
 
-
             for (int i = 0; i < users.size(); i++) {
                 System.out.println((i + 1) + ". " + users.get(i).getUserName());
             }

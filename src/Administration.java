@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.time.format.DateTimeFormatter;
-import java.util.Map;
 
 
 class Administration {
@@ -121,59 +120,59 @@ class Administration {
     }
 
     public void menu() {
-            Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
-            boolean nextCycle = true;
-            while (nextCycle) {
-                System.out.format("%s\n", "=".repeat(80));
-                System.out.format("Huidige patient: %s\n", currentPatient.fullName());
-                System.out.format("%d:  Terug\n", SWITCH);
-                System.out.format("%d:  Patient gegevens\n", VIEW);
-                System.out.format("%d:  Bewerk de patient gegevens\n", EDIT);
-                System.out.format("%d:  Medicijnenlijst\n", VIEW_MEDICINES);
-                System.out.format("%d:  Bekijk consulttarieven\n", VIEW_CONSULTANT_RATES);
-                if (requestingUser.canEditMedicine()) {
-                    System.out.format("%d:  Een recept voorschrijven\n", ADD_MEDICINE);
-                } else {
-                    System.out.print("");
-                }
-                if (requestingUser.canEditMedicine()) {
-                    System.out.format("%d:  Bewerk de medicijnen\n", EDIT_MEDICINE);
-                } else {
-                    System.out.print("");
-                }
+        boolean nextCycle = true;
+        while (nextCycle) {
+            System.out.format("%s\n", "=".repeat(80));
+            System.out.format("Huidige patient: %s\n", currentPatient.fullName());
+            System.out.format("%d:  Terug\n", SWITCH);
+            System.out.format("%d:  Patient gegevens\n", VIEW);
+            System.out.format("%d:  Bewerk de patient gegevens\n", EDIT);
+            System.out.format("%d:  Medicijnenlijst\n", VIEW_MEDICINES);
+            System.out.format("%d:  Bekijk consulttarieven\n", VIEW_CONSULTANT_RATES);
+            if (requestingUser.canEditMedicine()) {
+                System.out.format("%d:  Een recept voorschrijven\n", ADD_MEDICINE);
+            } else {
+                System.out.print("");
+            }
+            if (requestingUser.canEditMedicine()) {
+                System.out.format("%d:  Bewerk de medicijnen\n", EDIT_MEDICINE);
+            } else {
+                System.out.print("");
+            }
 
-                System.out.print("Kies een optie: ");
-                int choice = scanner.nextInt();
-                switch (choice) {
-                    case STOP:
-                        nextCycle = false;
-                        break;
-                    case VIEW:
-                        currentPatient.viewData(requestingUser);
-                        break;
-                    case EDIT:
-                        currentPatient.editData(requestingUser);
-                        break;
-                    case SWITCH:
-                        currentPatient = selectCurrentPatientByName(); //zoekfunctie
-                        break;
-                    case VIEW_MEDICINES:
-                        currentPatient.printMedicine(); //medicijnenlijst
-                        break;
-                    case ADD_MEDICINE:
-                        currentPatient.addMedicine(); //medicijnen toevoegen
-                        break;
-                    case EDIT_MEDICINE:
-                        currentPatient.editMedicineForPatient(requestingUser); // medicijnen bewerken
-                        break;
-                    case VIEW_CONSULTANT_RATES:
-                        viewConsultantRates();
-                        break;
-                    default:
-                        System.out.println("Error, probeer opnieuw. Kies een cijfer uit de lijst.");
-                        break;
-                }
+            System.out.print("Kies een optie: ");
+            int choice = scanner.nextInt();
+            switch (choice) {
+                case STOP:
+                    nextCycle = false;
+                    break;
+                case VIEW:
+                    currentPatient.viewData(requestingUser);
+                    break;
+                case EDIT:
+                    currentPatient.editData(requestingUser);
+                    break;
+                case SWITCH:
+                    currentPatient = selectCurrentPatientByName(); //zoekfunctie
+                    break;
+                case VIEW_MEDICINES:
+                    currentPatient.printMedicine(); //medicijnenlijst
+                    break;
+                case ADD_MEDICINE:
+                    currentPatient.addMedicine(); //medicijnen toevoegen
+                    break;
+                case EDIT_MEDICINE:
+                    currentPatient.editMedicineForPatient(requestingUser); // medicijnen bewerken
+                    break;
+                case VIEW_CONSULTANT_RATES:
+                    viewConsultantRates();
+                    break;
+                default:
+                    System.out.println("Error, probeer opnieuw. Kies een cijfer uit de lijst.");
+                    break;
             }
         }
     }
+}
