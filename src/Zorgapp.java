@@ -18,7 +18,6 @@ public class Zorgapp {
                 Arrays.asList("Tina Tandenbleker", "Karel Kiespijn", "Barry Beugel")));
 
         User selectedUser = selectUser(users);
-        String selectedRole = selectRole(selectedUser);
 
         Administration administration = new Administration(selectedUser);
         administration.menu();

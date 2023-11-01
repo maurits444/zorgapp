@@ -3,7 +3,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class TandartsUser extends User {
-    private Map<String, Double> consultRates;
+    private final Map<String, Double> consultRates;
 
     public TandartsUser(int id, String name, List<String> roles) {
         super(id, name, roles);
@@ -22,14 +22,6 @@ public class TandartsUser extends User {
 
     // Access
     public boolean canAccessPatientLength() {
-        return false;
-    }
-
-    public boolean canAccessPatientWeight() {
-        return false;
-    }
-
-    public boolean canEditMedicine() {
         return false;
     }
 }

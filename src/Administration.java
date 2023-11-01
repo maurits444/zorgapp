@@ -47,8 +47,7 @@ class Administration {
 
     // Methods for viewing Data
     public void viewConsultantRates() {
-        if (requestingUser instanceof TandartsUser) {
-            TandartsUser tandartsUser = (TandartsUser) requestingUser;
+        if (requestingUser instanceof TandartsUser tandartsUser) {
 
             System.out.println("==== Tandarts Consultprijzen:========================");
             System.out.println("Routine controle - €"
@@ -61,8 +60,7 @@ class Administration {
                     + tandartsUser.getConsultRate("Wortelkanaalbehandeling"));
             System.out.println("Implantaat - €"
                     + tandartsUser.getConsultRate("Implantaat"));
-        } else if (requestingUser instanceof FysioUser) {
-            FysioUser fysioUser = (FysioUser) requestingUser;
+        } else if (requestingUser instanceof FysioUser fysioUser) {
 
             System.out.println("==== Huisarts Consultprijzen:========================");
             System.out.println("Standaard behandeling - €"
@@ -79,8 +77,7 @@ class Administration {
                     + fysioUser.getConsultRate("Dry Needling"));
             System.out.println("Gebruik van oefenbad - €"
                     + fysioUser.getConsultRate("Gebruik van oefenbad"));
-        } else if (requestingUser instanceof HuisartsUser) {
-            HuisartsUser huisartsUser = (HuisartsUser) requestingUser;
+        } else if (requestingUser instanceof HuisartsUser huisartsUser) {
 
             System.out.println("==== Fysio Consultprijzen:========================");
             System.out.println("Consult - €"

@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class FysioUser extends User {
 
-    private Map<String, Double> consultRates;
+    private final Map<String, Double> consultRates;
 
     public FysioUser(int id, String name, List<String> roles) {
         super(id, name, roles);

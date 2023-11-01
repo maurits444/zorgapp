@@ -22,9 +22,6 @@ class User {
     public List<String> getRoles() {
         return roles;
     }
-    public ConsultInfo getConsultInfo(String serviceName) {
-        return null;
-    }
 
     // Access
     public boolean canAccessPatientLength() {

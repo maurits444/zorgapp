@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class HuisartsUser extends User {
 
-    private Map<String, Double> consultRates;
+    private final Map<String, Double> consultRates;
 
     public HuisartsUser(int id, String name, List<String> roles) {
         super(id, name, roles);

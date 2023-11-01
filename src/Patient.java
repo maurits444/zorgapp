@@ -17,7 +17,7 @@ public class Patient {
     private static final int LUNGSCAPACITY = 6;
 
     // Properties
-    private int id;
+    private final int id;
     private String surname;
     private String firstName;
     private LocalDate dateOfBirth;
@@ -25,7 +25,7 @@ public class Patient {
     private float height;
     private float weight;
     private float lungsCapacity;
-    private List<Medicine> medicines;
+    private final List<Medicine> medicines;
 
     // Constructor
     public Patient(int id, String surname, String firstName, LocalDate dateOfBirth,
@@ -54,28 +54,8 @@ public class Patient {
         return firstName;
     }
 
-    LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public float getHeight() {
-        return height;
-    }
-
-    public float getWeight() {
-        return weight;
-    }
-
     public float getLungsCapacity() {
         return lungsCapacity;
-    }
-
-    public List<Medicine> getMedicine() {
-        return medicines;
     }
 
     public float getBMI() {
