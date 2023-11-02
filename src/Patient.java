@@ -17,7 +17,7 @@ public class Patient {
     private static final int LUNGSCAPACITY = 6;
 
     // Properties
-    private final int id;
+    private final int id; //encapsulation
     private String surname;
     private String firstName;
     private LocalDate dateOfBirth;
@@ -64,14 +64,14 @@ public class Patient {
 
     String getBMIStatus() {
         float bmi = getBMI();
-        if (bmi < 18.5f) return "Underweight";
-        if (bmi < 25f) return "Normal weight";
-        if (bmi < 30f) return "Overweight";
+        if (bmi < 18.5f) return "Ondergewicht";
+        if (bmi < 25f) return "Gezond gewicht";
+        if (bmi < 30f) return "Overgewicht";
         return "Obese";
     }
 
     // Setters with validation
-    void setSurname(String surname) {
+    void setSurname(String surname) { //imperatief (selectie)
         if (surname != null && !surname.trim().isEmpty()) {
             this.surname = surname;
         }
@@ -94,15 +94,15 @@ public class Patient {
         if (height > 0 && height <= 250) {
             this.height = height;
         } else {
-            System.out.println("Error: Height must be between 0 and 250.");
+            System.out.println("Error: Lengte moet tussen de 0 en 250 vallen.");
         }
     }
 
-    void setWeight(float weight) {
+    void setWeight(float weight) { //polymorphism (override)
         if (weight > 0 && weight <= 250) {
             this.weight = weight;
         } else {
-            System.out.println("Error: Weight must be between 0 and 250.");
+            System.out.println("Error: Gewicht moet tussen de 0 en 250 vallen.");
         }
     }
 
@@ -124,16 +124,16 @@ public class Patient {
         return defaultMedicine;
     }
 
-    void addNewMedicine(String medicineName, String dose, String frequency) {
+    void addNewMedicine(String medicineName, String dose, String frequency) { //abstraction en imperatief (bevat stappen)
         Medicine medicine = new Medicine(medicineName, dose, frequency);
         this.medicines.add(medicine);
     }
 
-    public void printMedicine() {
-        System.out.println("List of medicines:");
+    public void printMedicine() { //iteratie (for loop)
+        System.out.println("Medicijnenlijst:");
         for (Medicine medicine : this.medicines) {
-            System.out.println("Medicine: " + medicine.getName() + "\nDosage: " + medicine.getDose()
-                    + "\nFrequency: " + medicine.getFrequency());
+            System.out.println("Medicijn: " + medicine.getName() + "\nDosering: " + medicine.getDose()
+                    + "\nFrequentie: " + medicine.getFrequency());
             System.out.println();
         }
     }
@@ -141,17 +141,17 @@ public class Patient {
     public void addMedicine() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Enter the name of the medicine:");
+        System.out.println("Voer de naam van het medicijn in:");
         String medicineName = scanner.nextLine();
 
-        System.out.println("Enter the dosage:");
+        System.out.println("Voer de dosering in:");
         String dose = scanner.nextLine();
 
-        System.out.println("Enter the frequency and any additional notes:");
+        System.out.println("Voer de frequentie in en een eventuele bijsluiter:");
         String frequency = scanner.nextLine();
 
         addNewMedicine(medicineName, dose, frequency);
-        System.out.println("New medicine added!");
+        System.out.println("Gelukt!");
     }
 
     void editMedicine(int index, String medicineName, String dose, String frequency, User requestingUser) {
@@ -161,19 +161,19 @@ public class Patient {
                 medicine.setName(medicineName);
                 medicine.setDose(dose);
                 medicine.setFrequency(frequency);
-                System.out.println("Medicine successfully edited.");
+                System.out.println("Medicijn bewerkt!");
             } else {
-                System.out.println("Invalid medicine index. Provide a valid index.");
+                System.out.println("Error: Verkeerde input. Voer een geldige index in.");
             }
         } else {
-            System.out.println("The user does not have permission to edit medicines.");
+            System.out.println("De gebruiker heeft geen permissies om medicijnen te bewerken.");
         }
     }
 
     public void editMedicineForPatient(User requestingUser) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Select a medicine:");
+        System.out.println("Selecteer een medicijn:");
         for (int i = 0; i < medicines.size(); i++) {
             System.out.println((i + 1) + ". " + medicines.get(i).getName());
         }
@@ -182,17 +182,17 @@ public class Patient {
         boolean validInput = false;
 
         while (!validInput) {
-            System.out.print("Choose a medicine to edit: ");
+            System.out.print("Kies een medicijn om te bewerken: ");
 
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
                 if (choice > 0 && choice <= medicines.size()) {
                     validInput = true;
                 } else {
-                    System.out.println("Error, invalid input. Choose a number from the list.");
+                    System.out.println("Error, verkeerde input. Kies een index uit de lijst.");
                 }
             } else {
-                System.out.println("Error, invalid input. Enter a number.");
+                System.out.println("Error, verkeerde input. U kunt alleen een index selecteren.");
                 scanner.next();
             }
         }
@@ -201,13 +201,13 @@ public class Patient {
 
         scanner.nextLine();
 
-        System.out.print("Medicine Name: ");
+        System.out.print("Medicijn naam: ");
         String medicineName = scanner.nextLine();
 
-        System.out.print("Dosage: ");
+        System.out.print("Dosering: ");
         String dose = scanner.nextLine();
 
-        System.out.print("Frequency: ");
+        System.out.print("Frequentie: ");
         String frequency = scanner.nextLine();
 
         editMedicine(medicationIndex, medicineName, dose, frequency, requestingUser);
@@ -225,48 +225,27 @@ public class Patient {
 
     void viewData(User requestingUser) {
         System.out.format("===== Patient id=%d ==============================\n", id);
-        System.out.format("%-17s %s\n", "Surname:", surname);
-        System.out.format("%-17s %s\n", "First Name:", firstName);
-        System.out.format("%-17s %s\n", "Date of Birth",
+        System.out.format("%-17s %s\n", "Achternaam:", surname);
+        System.out.format("%-17s %s\n", "Voornaam:", firstName);
+        System.out.format("%-17s %s\n", "Geboortedatum",
                 dateOfBirth.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
         if (requestingUser.canAccessPatientLength()) {
-            System.out.format("%-17s %.2f M%n", "Height:", height);
+            System.out.format("%-17s %.2f M%n", "Lengte:", height);
         } else {
             System.out.print("");
         }
         if (requestingUser.canAccessPatientWeight()) {
-            System.out.format("%-17s %.2f kg%n", "Weight:", weight);
+            System.out.format("%-17s %.2f kg%n", "Gewicht:", weight);
         } else {
             System.out.print("");
         }
         System.out.format("%-17s %.2f\n", "Body Mass Index:", getBMI());
         System.out.format("%-17s %s\n", "BMI Status:", getBMIStatus());
-        System.out.format("%-17s %.2f L\n", "Lung Capacity:", getLungsCapacity());
-        System.out.format("%-17s %d Years\n", "Age:", age);
-        System.out.format("%-17s %.2f\n", "Body Mass Index:", getBMI());
-        System.out.format("%-17s %s\n", "BMI Status:", getBMIStatus());
-        System.out.format("%-17s %.2f L\n", "Lung Capacity:", getLungsCapacity());
+        System.out.format("%-17s %.2f L\n", "Longcapaciteit:", getLungsCapacity());
+        System.out.format("%-17s %d Years\n", "Leeftijd:", age);
     }
 
-    public float getHeight(User requestingUser) {
-        List<String> roles = requestingUser.getRoles();
-        if (roles != null && roles.contains("DENTIST")) {
-            System.out.println("Not accessible for a dentist.");
-            return -1;
-        }
-        return height;
-    }
-
-    public float getWeight(User requestingUser) {
-        List<String> roles = requestingUser.getRoles();
-        if (roles != null && roles.contains("DENTIST")) {
-            System.out.println("Not accessible for a dentist.");
-            return -1;
-        }
-        return weight;
-    }
-
-    void editData(User requestingUser) {
+    void editData() { //polymorphism en imperatief lussen (kan korter)
         Scanner scanner = new Scanner(System.in);
 
         while (true) {

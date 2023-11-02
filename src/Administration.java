@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.time.format.DateTimeFormatter;
 
+import static java.util.Arrays.*;
+
 
 class Administration {
     // Fields
@@ -25,16 +27,12 @@ class Administration {
         this.requestingUser = requestingUser;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
-        patients.add(new Patient(1, "Huisman", "Michiel",
-                LocalDate.parse("30-01-2001", formatter), 1.7f, 88.0f, 5.0f));
-        patients.add(new Patient(2, "Bos", "Henk",
-                LocalDate.parse("15-04-1999", formatter), 1.9f, 90.0f, 6.0f));
-        patients.add(new Patient(3, "Beek", "Jan",
-                LocalDate.parse("16-06-1990", formatter), 1.6f, 65.0f, 7.0f));
-        patients.add(new Patient(4, "Boersma", "Johan",
-                LocalDate.parse("21-02-1995", formatter), 1.7f, 75.0f, 4.5f));
-        patients.add(new Patient(5, "Tukker", "Tom",
-                LocalDate.parse("25-08-2003", formatter), 1.8f, 85.0f, 4.8f));
+        patients.addAll(asList(new Patient(1, "Huisman", "Michiel",
+                LocalDate.parse("30-01-2001", formatter), 1.7f, 88.0f, 5.0f), new Patient(2, "Bos", "Henk",
+                LocalDate.parse("15-04-1999", formatter), 1.9f, 90.0f, 6.0f), new Patient(3, "Beek", "Jan",
+                LocalDate.parse("16-06-1990", formatter), 1.6f, 65.0f, 7.0f), new Patient(4, "Boersma", "Johan",
+                LocalDate.parse("21-02-1995", formatter), 1.7f, 75.0f, 4.5f), new Patient(5, "Tukker", "Tom",
+                LocalDate.parse("25-08-2003", formatter), 1.8f, 85.0f, 4.8f)));
 
         System.out.println("Beschikbare patiënten:");
         for (Patient patient : patients) {
@@ -47,7 +45,7 @@ class Administration {
 
     // Methods for viewing Data
     public void viewConsultantRates() {
-        if (requestingUser instanceof TandartsUser tandartsUser) {
+        if (requestingUser instanceof TandartsUser tandartsUser) { //zonder instanceof
 
             System.out.println("==== Tandarts Consultprijzen:========================");
             System.out.println("Routine controle - €"
@@ -124,7 +122,7 @@ class Administration {
                     currentPatient.viewData(requestingUser);
                     break;
                 case EDIT:
-                    currentPatient.editData(requestingUser);
+                    currentPatient.editData();
                     break;
                 case SWITCH:
                     currentPatient = selectCurrentPatientByName(); //zoekfunctie
