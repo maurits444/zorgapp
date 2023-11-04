@@ -17,7 +17,7 @@ public class Patient {
     private static final int LUNGSCAPACITY = 6;
 
     // Properties
-    private final int id; //encapsulation
+    private final int id;
     private String surname;
     private String firstName;
     private LocalDate dateOfBirth;
@@ -98,7 +98,7 @@ public class Patient {
         }
     }
 
-    void setWeight(float weight) { //polymorphism (override)
+    void setWeight(float weight) {
         if (weight > 0 && weight <= 250) {
             this.weight = weight;
         } else {
@@ -116,16 +116,18 @@ public class Patient {
     private List<Medicine> createDefaultMedicine() {
         List<Medicine> defaultMedicine = new ArrayList<>();
 
-        defaultMedicine.add(new Medicine("Ibuprofen", "200mg", "3 keer per dag \n"));
-        defaultMedicine.add(new Medicine("Omeprazol", "20mg", "1 keer per dag \n"));
-        defaultMedicine.add(new Medicine("Loratadine", "10mg", "2 keer per dag \n"));
-        defaultMedicine.add(new Medicine("Amoxicilline", "500mg", "3 keer per dag \n"));
+
+        defaultMedicine.add(new Medicine("Ibuprofen", "200mg", "3 keer per dag", "440 stuks"));
+        defaultMedicine.add(new Medicine("Omeprazol", "20mg", "1 keer per dag", "680 stuks"));
+        defaultMedicine.add(new Medicine("Loratadine", "10mg", "2 keer per dag", "970 stuks"));
+        defaultMedicine.add(new Medicine("Amoxicilline", "500mg", "3 keer per dag", "790 stuks"));
+
 
         return defaultMedicine;
     }
 
-    void addNewMedicine(String medicineName, String dose, String frequency) { //abstraction en imperatief (bevat stappen)
-        Medicine medicine = new Medicine(medicineName, dose, frequency);
+    void addNewMedicine(String medicineName, String dose, String frequency, String stock) { //abstraction en imperatief (bevat stappen)
+        Medicine medicine = new Medicine(medicineName, dose, frequency, stock);
         this.medicines.add(medicine);
     }
 
@@ -133,10 +135,11 @@ public class Patient {
         System.out.println("Medicijnenlijst:");
         for (Medicine medicine : this.medicines) {
             System.out.println("Medicijn: " + medicine.getName() + "\nDosering: " + medicine.getDose()
-                    + "\nFrequentie: " + medicine.getFrequency());
+                    + "\nFrequentie: " + medicine.getFrequency() + "\nVoorraad: " + medicine.getStock());
             System.out.println();
         }
     }
+
 
     public void addMedicine() {
         Scanner scanner = new Scanner(System.in);
@@ -150,7 +153,10 @@ public class Patient {
         System.out.println("Voer de frequentie in en een eventuele bijsluiter:");
         String frequency = scanner.nextLine();
 
-        addNewMedicine(medicineName, dose, frequency);
+        System.out.print("Voer de voorraad in: Type NVT als u een Huisarts bent. ");
+        String stock = scanner.nextLine();
+
+        addNewMedicine(medicineName, dose, frequency, stock);
         System.out.println("Gelukt!");
     }
 
@@ -210,7 +216,10 @@ public class Patient {
         System.out.print("Frequentie: ");
         String frequency = scanner.nextLine();
 
-        editMedicine(medicationIndex, medicineName, dose, frequency, requestingUser);
+        System.out.print("Medicijn voorraad: ");
+        String stock = scanner.nextLine();
+
+        editMedicine(medicationIndex, dose, frequency, stock, requestingUser);
     }
 
     // Other methods for patient data handling
@@ -245,7 +254,7 @@ public class Patient {
         System.out.format("%-17s %d Years\n", "Leeftijd:", age);
     }
 
-    void editData() { //polymorphism en imperatief lussen (kan korter)
+    void editData() { // imperatief lussen (kan korter)
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -323,4 +332,3 @@ public class Patient {
         }
     }
 }
-

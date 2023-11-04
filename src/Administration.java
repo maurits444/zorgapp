@@ -144,15 +144,15 @@ class Administration {
                     break;
             } } }
 
-// Helper methods
+    // Helper methods
     private Patient searchPatientByName(String firstName, String lastName){
-                for (Patient patient : patients) {
-                    if (patient.getFirstName().equalsIgnoreCase(firstName)
-                            && patient.getSurname().equalsIgnoreCase(lastName)) {
-                        return patient;
-                    }
-                }
-                return null; }
+        for (Patient patient : patients) {
+            if (patient.getFirstName().equalsIgnoreCase(firstName)
+                    && patient.getSurname().equalsIgnoreCase(lastName)) {
+                return patient;
+            }
+        }
+        return null; }
 
 
     private Patient selectCurrentPatientByName() {
