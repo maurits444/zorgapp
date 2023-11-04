@@ -19,28 +19,11 @@ public class Zorgapp {
 
         User selectedUser = selectUser(users);
 
+        String selectedRole = selectRole(selectedUser);
+        System.out.println("Huidige Gebruiker: " + selectedRole);
+
         Administration administration = new Administration(selectedUser);
         administration.menu();
-    }
-
-    // User selection
-    public static User selectUser(List<User> users) {
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            System.out.println("Kies een gebruiker:");
-
-            for (int i = 0; i < users.size(); i++) {
-                System.out.println((i + 1) + ". " + users.get(i).getUserName());
-            }
-
-            int choice = scanner.nextInt();
-
-            if (choice > 0 && choice <= users.size()) {
-                return users.get(choice - 1);
-            } else {
-                System.out.println("Error, probeer opnieuw. Kies een cijfer uit de lijst");
-            }
-        }
     }
 
     // Role selection
@@ -57,6 +40,26 @@ public class Zorgapp {
 
             if (choice > 0 && choice <= user.getRoles().size()) {
                 return user.getRoles().get(choice - 1);
+            } else {
+                System.out.println("Error, probeer opnieuw. Kies een cijfer uit de lijst");
+            }
+        }
+    }
+
+    // User selection
+    public static User selectUser(List<User> users) {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("Kies een gebruiker:");
+
+            for (int i = 0; i < users.size(); i++) {
+                System.out.println((i + 1) + ". " + users.get(i).getUserName());
+            }
+
+            int choice = scanner.nextInt();
+
+            if (choice > 0 && choice <= users.size()) {
+                return users.get(choice - 1);
             } else {
                 System.out.println("Error, probeer opnieuw. Kies een cijfer uit de lijst");
             }
