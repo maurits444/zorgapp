@@ -126,10 +126,11 @@ public class Patient {
         return defaultMedicine;
     }
 
-    void addNewMedicine(String medicineName, String dose, String frequency, String stock) { //abstraction en imperatief (bevat stappen)
+    void addNewMedicine(String medicineName, String dose, String frequency, String stock) {
         Medicine medicine = new Medicine(medicineName, dose, frequency, stock);
         this.medicines.add(medicine);
     }
+
 
     public void printMedicine() { //iteratie (for loop)
         System.out.println("Medicijnenlijst:");
@@ -160,13 +161,14 @@ public class Patient {
         System.out.println("Gelukt!");
     }
 
-    void editMedicine(int index, String medicineName, String dose, String frequency, User requestingUser) {
+    void editMedicine(int index, String medicineName, String dose, String frequency, String stock, User requestingUser) {
         if (requestingUser.canEditMedicine()) {
             if (index >= 0 && index < medicines.size()) {
                 Medicine medicine = medicines.get(index);
                 medicine.setName(medicineName);
                 medicine.setDose(dose);
                 medicine.setFrequency(frequency);
+                medicine.setStock(stock);
                 System.out.println("Medicijn bewerkt!");
             } else {
                 System.out.println("Error: Verkeerde input. Voer een geldige index in.");
@@ -216,13 +218,13 @@ public class Patient {
         System.out.print("Frequentie: ");
         String frequency = scanner.nextLine();
 
-        System.out.print("Medicijn voorraad: ");
+        System.out.print("Voorraad (Huisarts type NVT): ");
         String stock = scanner.nextLine();
 
-        editMedicine(medicationIndex, dose, frequency, stock, requestingUser);
+        editMedicine(medicationIndex, medicineName, dose, frequency, stock, requestingUser);
     }
 
-    // Other methods for patient data handling
+        // Other methods for patient data handling
     private int calcAge(LocalDate dob) {
         LocalDate today = LocalDate.now();
         return Period.between(dob, today).getYears();

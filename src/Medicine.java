@@ -2,7 +2,7 @@ public class Medicine {
     private String name;
     private String dose;
     private String frequency;
-    private String stock;
+    public String stock;
 
     public Medicine(String name, String dose, String frequency, String stock) {
         this.name = name;
@@ -29,5 +29,5 @@ public class Medicine {
     public void setFrequency(String frequency) {
         this.frequency = frequency;
     }
-    public void setStock(String stock) {this.stock = stock;}
+    public void setStock(String stock) { this.stock = stock; }
 }
