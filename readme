@@ -1,0 +1,35 @@
+# Zorgapplicatie README
+
+## Inleiding
+Dit is de README voor de Zorgapplicatie, bestaande uit de volgende klassen: "Zorgapp.java", "Administration.java", "Medicine.java", "User.java", "FysioUser.java", "Patient.java", "ApotheekUser.java", "TandartsUser.java", en "HuisartsUser.java". Alle broncode is bijgevoegd, en alle functies zijn operationeel.
+
+## Inhoudsopgave
+1. [Projectstructuur](#projectstructuur)
+2. [Vereisten](#vereisten)
+3. [Installatie](#installatie)
+4. [Gebruik](#gebruik)
+
+## Projectstructuur
+- `/src`: Bevat alle broncodebestanden.
+  - `Zorgapp.java`: Hoofdbestand om de applicatie te draaien.
+  - `Administration.java`: Klasse voor administratieve functies.
+  - `Medicine.java`: Klasse die medicijninformatie beheert.
+  - `User.java`: Algemene gebruikersklasse.
+  - `FysioUser.java`: Klasse voor fysiotherapeuten.
+  - `Patient.java`: Klasse voor patiënten.
+  - `ApotheekUser.java`: Klasse voor apothekers.
+  - `TandartsUser.java`: Klasse voor tandartsen.
+  - `HuisartsUser.java`: Klasse voor huisartsen.
+
+## Vereisten
+- Taal: Java
+
+## Installatie
+1. Clone de repository: `git clone https://github.com/jouw-gebruikersnaam/zorgapplicatie.git`
+2. Navigeer naar de `src`-map: `cd zorgapplicatie/src`
+3. Voer de Zorgapp.java uit: `java Zorgapp.java`
+
+## Gebruik
+1. Voer de Zorgapp.java uit om de applicatie te starten.
+2. Volg de instructies op het scherm om door de applicatie te navigeren.
+
