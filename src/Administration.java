@@ -61,7 +61,7 @@ class Administration {
                     + tandartsUser.getConsultRate("Implantaat"));
         } else if (requestingUser instanceof FysioUser fysioUser) {
 
-            System.out.println("==== Huisarts Consultprijzen:========================");
+            System.out.println("==== Fysio Consultprijzen:========================");
             System.out.println("Standaard behandeling - €"
                     + fysioUser.getConsultRate("Standaard behandeling"));
             System.out.println("Tapen en bandageren - €"
@@ -78,7 +78,7 @@ class Administration {
                     + fysioUser.getConsultRate("Gebruik van oefenbad"));
         } else if (requestingUser instanceof HuisartsUser huisartsUser) {
 
-            System.out.println("==== Fysio Consultprijzen:========================");
+            System.out.println("==== Huisarts Consultprijzen:========================");
             System.out.println("Consult - €"
                     + huisartsUser.getConsultRate("Consult"));
             System.out.println("Huisbezoek - €"
